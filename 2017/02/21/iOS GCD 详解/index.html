@@ -1,28 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title>tao&#39;s blog</title>
-  
-  <link href="/atom.xml" rel="self"/>
-  
-  <link href="http://yoursite.com/"/>
-  <updated>2017-02-23T08:45:29.000Z</updated>
-  <id>http://yoursite.com/</id>
-  
-  <author>
-    <name>Liu Tao</name>
-    
-  </author>
-  
-  <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2017/02/21/iOS%20GCD%20%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://yoursite.com/2017/02/21/iOS GCD 详解/</id>
-    <published>2017-02-21T12:15:26.000Z</published>
-    <updated>2017-02-23T08:45:29.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="什么是-GCD"><a href="#什么是-GCD" class="headerlink" title="什么是 GCD ?"></a>什么是 GCD ?</h2><p><code>GCD</code> 全称为 <code>Grand Central Dispatch</code> ， 是一个异步执行任务的技术之一。 一般将应用程序中线程管理用的代码再系统级中实现。 开发者只需要定义想执行的任务并追加到适当的 <code>Dispatch Queue</code> 中， <code>GCD</code> 就能生成必要的线程并计划执行任务。 由于线程管理是作为系统的一部分来实现的， 因此可统一管理，也可执行任务，这样就比以前的线程更有效率。</p>
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>  · tao's blog</title><meta name="description" content=" - Liu Tao"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="tao's blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/573555508" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/taooba" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title"></h1><div class="post-info">Feb 21, 2017</div><div class="post-content"><h2 id="什么是-GCD"><a href="#什么是-GCD" class="headerlink" title="什么是 GCD ?"></a>什么是 GCD ?</h2><p><code>GCD</code> 全称为 <code>Grand Central Dispatch</code> ， 是一个异步执行任务的技术之一。 一般将应用程序中线程管理用的代码再系统级中实现。 开发者只需要定义想执行的任务并追加到适当的 <code>Dispatch Queue</code> 中， <code>GCD</code> 就能生成必要的线程并计划执行任务。 由于线程管理是作为系统的一部分来实现的， 因此可统一管理，也可执行任务，这样就比以前的线程更有效率。</p>
 <p>相对于直接去写多线程的代码。通过 <code>GCD</code> 去使用多线程技术不仅非常简单，并且避免一些多线程操作中可能出现的问题。开发者要做的只是定义想执行的任务并追加到适当的 <code>Dispatch Queue</code> 中。</p>
 <h2 id="Dispatch-Queue"><a href="#Dispatch-Queue" class="headerlink" title="Dispatch Queue"></a>Dispatch Queue</h2><h4 id="Dispatch-Queue-介绍"><a href="#Dispatch-Queue-介绍" class="headerlink" title="Dispatch Queue 介绍"></a>Dispatch Queue 介绍</h4><p><code>Dispatch Queue</code> 是执行等待任务的队列。在使用 <code>GCD</code> 执行任务时，添加任务到对应的 <code>Dispatch Queue</code> 中。由 <code>Dispatch Queue</code> 控制怎么在线程上执行任务。<code>Dispatch_Queue</code> 按照任务追加的顺序执行(FIFO)。  <code>Dispatch Queue</code> 分类两种类型: </p>
 <ul>
@@ -86,59 +62,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;io.tao.app.concurrent&quot;, DISPATCH_QUEUE_CONCURRENT);</div><div class="line"></div><div class="line">dispatch_async(queue, ^&#123; sleep(2); NSLog(@&quot;queue1&quot;); &#125;);</div><div class="line">dispatch_async(queue, ^&#123; NSLog(@&quot;queue2&quot;); &#125;);</div><div class="line"></div><div class="line">NSLog(@&quot;queue supend...&quot;);</div><div class="line">dispatch_suspend(queue);</div><div class="line">dispatch_async(queue, ^&#123; NSLog(@&quot;queue3&quot;); &#125;);</div><div class="line"></div><div class="line">sleep(8);</div><div class="line">NSLog(@&quot;queue resume...&quot;);</div><div class="line">dispatch_resume(queue);</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 上面例子的控制台输出。注意每条 Log 的时间。刚好能证明上面的结论</div><div class="line">2017-02-23 16:30:19.829 OCGCD[28759:29155110] queue supend...</div><div class="line">2017-02-23 16:30:19.829 OCGCD[28759:29155170] queue2</div><div class="line">2017-02-23 16:30:21.889 OCGCD[28759:29155168] queue1</div><div class="line">2017-02-23 16:30:27.903 OCGCD[28759:29155110] queue resume...</div><div class="line">2017-02-23 16:30:27.904 OCGCD[28759:29155167] queue3</div></pre></td></tr></table></figure>
 <h2 id="GCD-的内存管理"><a href="#GCD-的内存管理" class="headerlink" title="GCD 的内存管理"></a>GCD 的内存管理</h2><p>在 iOS6 or Mac OS X 10.8 以前 GCD 对象并没有纳入 <code>ARC</code> 管理范围。通过带 <code>dispatch_xxx_create</code> 创建的值都需开发者负责释放。<code>dispatch_retain</code> <code>dispatch_release</code> 。iOS6 or Mac OS X 10.8 之后使用的是  ARC 的话就不需要手动管理内存了。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;什么是-GCD&quot;&gt;&lt;a href=&quot;#什么是-GCD&quot; class=&quot;headerlink&quot; title=&quot;什么是 GCD ?&quot;&gt;&lt;/a&gt;什么是 GCD ?&lt;/h2&gt;&lt;p&gt;&lt;code&gt;GCD&lt;/code&gt; 全称为 &lt;code&gt;Grand Central Dispa
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>一个十年的结束, 另一个开始</title>
-    <link href="http://yoursite.com/2017/01/27/%E4%B8%80%E4%B8%AA%E5%8D%81%E5%B9%B4%E7%9A%84%E7%BB%93%E6%9D%9F,%20%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%BC%80%E5%A7%8B/"/>
-    <id>http://yoursite.com/2017/01/27/一个十年的结束, 另一个开始/</id>
-    <published>2017-01-27T15:57:52.000Z</published>
-    <updated>2017-01-29T04:43:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>二零一七年农历新年晚上的的鞭炮吵的让我什么都不想做,  就开始写我人生的第一篇博客.  </p>
-<p>2007那年我11岁, 懵懵懂懂的拥有了人生的第一台电脑, 到现在已经十年时间了.  十年感知上是一个超级漫长的时间.  我竟然浑浑噩噩的一晃而过了.  在那之前对电脑基本一无所知.  拿到它后我总是整天折腾它, 经常把弄坏了自己又不知道怎么办. 然后只能拿去联想售后去修. 以至于后来售后都认识我, 见到我去就会幽怨的讲一句”你又来啦”.  后来售后哥哥就教我怎么重装系统. 再碰到问题不行就重装系统. 也是这个时候在网上看到比尔盖茨, 心里就有了以后做技术的想法. 去买了&lt;网页三剑客&gt;和&lt; Photoshop &gt;在家吃灰. 至于原因, 后来我觉得因为比尔盖茨当时是世界首富(太功利, 不对). 虽然十年过去了, 但人家还是首富. 我还是默默无闻. </p>
-<p>07年一直到我初中辍学的11年辍学技术上基本没有啥进展. 只是跟着最基础入门视频写了最简单的 C. 还有玩了下 Flash, Dreamwear 等一些软件. 玩的很浅. 也没有产生什么作品.  甚至对计算机的基本认知都还不够. 更多的时间花在了耍 QQ 空间, 点亮 QQ 图标去了. 那时候 QQ 空间样子几天一换. 花哨到浏览器打开都要几秒. QQ 图标点了好多好多排. 反正当时没有看到比我亮的多的. 一遍骂着麻花藤一遍玩他的游戏. 这几年学没学好, 玩没玩好, 傻没傻透.  一个人熬夜很多事想不通.</p>
-<p>12年就去了合肥一个新华电脑学院去学软件开发(2年制). 进去就是打字打2,3个月. 然后几个好朋友就开始自学之旅. 没有听一点课. 本来一起学着 java. 都准备选 java 方向. 就我去选了.net 开发. 因为可以拿 C# 画 windows 的界面呀. 这对我来说是最直观的一个产品呀.  对, 我就他妈是个画界面的. 后来网上鼓吹移动开发(不是鼓吹, 是真的有前景, 但是大家当时完全是脱离行业的). 所以我看似有先见之明去一个人去自学 iOS 开发. 装虚拟机开发. 学也很狗屁. 没入行的自学感觉真的很难. (这种情况更好是报班学)</p>
-<p>13年中在新华的课程没学完, 觉得这样下去也是荒废时间. 就再次辍学去上海找工作了.  好不容易进了一家公司. 老板让我去学 cocos2dx 做棋牌游戏. 我只能欣然接受. 当时我的想法就是有份工作就很开心了. 于是就天天熬夜, 经常通宵的边学边做.  没本事没有方法论. 只能做拼命三郎. 天天熬夜, 然后继续那工作下去了.  15年3月去北京开始真正做iOS开发, 16年因为公司原因. 跑到杭州工作.  16年11月公司倒闭, 欠薪跑路. 17年农历新年, 我在杭州写下这篇. </p>
-<p>复盘和总结我接触电脑以来的十年. 有一个很好的开始. 一开始就决定从事 IT 行业. 但是中间的路却没有走好. 有太多原因:</p>
-<ol>
-<li>上学时对软件开发认识不够, 不知道要往哪走. 没有氛围, 一个人很孤独很难. 浪费很多时间</li>
-<li>开始工作后为公司加班太多, 没有太多为自己考虑. 没有构建好自己的知识体系</li>
-<li>基础学科英语,数学太差, 刚工作时没啥感觉, 现在越来越难受</li>
-<li>自己自制力太差看似很累, 很忙. 但其实效率低下.</li>
-<li>没有认真对待选择, 很多失败都是自己选择失误 — 躲避选择, 随波逐流, 太心急太肤浅. </li>
-<li>不是计算专业出身, 对编程基础不够重视.  </li>
-<li>学习不讲方法论. 最近看的&lt;如何高效学习&gt;受益良多</li>
-</ol>
-<p>问题大概就这么多, 有问题就必须要解决, 面对十年的结束和新的开始,  所以年三十在这里立个 flag:</p>
-<ol>
-<li>养成早起习惯, 无论节假日上不上班早上7点醒.</li>
-<li>每周必须有一天完全离开电脑. 放松</li>
-<li>看完买的一套英语语法书. 阅读英文文档要变成日常</li>
-<li>看完&lt; TCP/IP 详解 &gt;的三本黑书 和 &lt; 算法4 &gt; 外加一本编译原理相关的书</li>
-<li>至少撸出2个个人产品</li>
-<li>每月至少码一篇原创的blog</li>
-</ol>
-<p>最后 @all 新年快乐,  家人健康, 幸福开心.</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;二零一七年农历新年晚上的的鞭炮吵的让我什么都不想做,  就开始写我人生的第一篇博客.  &lt;/p&gt;
-&lt;p&gt;2007那年我11岁, 懵懵懂懂的拥有了人生的第一台电脑, 到现在已经十年时间了.  十年感知上是一个超级漫长的时间.  我竟然浑浑噩噩的一晃而过了.  在那之前对电脑基
-    
-    </summary>
-    
-    
-  </entry>
-  
-</feed>
+</div></article></div></main><footer><div class="paginator"><a href="/2017/01/27/一个十年的结束, 另一个开始/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'tao4blog';
+var disqus_identifier = '2017/02/21/iOS GCD 详解/';
+var disqus_title = '';
+var disqus_url = 'http://yoursite.com/2017/02/21/iOS GCD 详解/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//tao4blog.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Liu Tao</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
