@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-23T08:45:29.000Z</updated>
+  <updated>2017-02-23T08:48:22.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>iOS GCD 详解</title>
     <link href="http://yoursite.com/2017/02/21/iOS%20GCD%20%E8%AF%A6%E8%A7%A3/"/>
     <id>http://yoursite.com/2017/02/21/iOS GCD 详解/</id>
     <published>2017-02-21T12:15:26.000Z</published>
-    <updated>2017-02-23T08:45:29.000Z</updated>
+    <updated>2017-02-23T08:48:22.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="什么是-GCD"><a href="#什么是-GCD" class="headerlink" title="什么是 GCD ?"></a>什么是 GCD ?</h2><p><code>GCD</code> 全称为 <code>Grand Central Dispatch</code> ， 是一个异步执行任务的技术之一。 一般将应用程序中线程管理用的代码再系统级中实现。 开发者只需要定义想执行的任务并追加到适当的 <code>Dispatch Queue</code> 中， <code>GCD</code> 就能生成必要的线程并计划执行任务。 由于线程管理是作为系统的一部分来实现的， 因此可统一管理，也可执行任务，这样就比以前的线程更有效率。</p>
 <p>相对于直接去写多线程的代码。通过 <code>GCD</code> 去使用多线程技术不仅非常简单，并且避免一些多线程操作中可能出现的问题。开发者要做的只是定义想执行的任务并追加到适当的 <code>Dispatch Queue</code> 中。</p>
