@@ -1,1 +1,1295 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> tao's blog</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="tao's blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link active">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/573555508" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/taooba" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/03/30/Objective-C Block Part3 - Weak-Strong Dance/" class="post-title-link">Objective-C Block Part3 - Weak-Strong Dance</a></h2><div class="post-info">Mar 30, 2017</div><div class="post-content"></div><a href="/2017/03/30/Objective-C Block Part3 - Weak-Strong Dance/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/03/30/Objective-C Block Part2 - 实现原理/" class="post-title-link">Objective-C Block Part2 - 实现原理</a></h2><div class="post-info">Mar 30, 2017</div><div class="post-content"></div><a href="/2017/03/30/Objective-C Block Part2 - 实现原理/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/03/26/Objective-C Block Part1 - 介绍&amp;使用/" class="post-title-link">Objective-C Block Part1 - 介绍&使用</a></h2><div class="post-info">Mar 26, 2017</div><div class="post-content"></div><a href="/2017/03/26/Objective-C Block Part1 - 介绍&amp;使用/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/02/21/iOS Grand Central Dispatch 的使用/" class="post-title-link">iOS Grand Central Dispatch 的使用</a></h2><div class="post-info">Feb 21, 2017</div><div class="post-content"></div><a href="/2017/02/21/iOS Grand Central Dispatch 的使用/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/01/27/一个十年的结束, 另一个开始/" class="post-title-link">一个十年的结束, 另一个开始</a></h2><div class="post-info">Jan 27, 2017</div><div class="post-content"></div><a href="/2017/01/27/一个十年的结束, 另一个开始/" class="read-more">...more</a></article></li></ul></main><footer><div class="paginator"></div><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Liu Tao</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="tao's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="tao's blog">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="tao's blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tao's blog">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/"/>
+
+
+
+
+
+  <title> tao's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tao's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/30/Objective-C Block Part3 - Weak-Strong Dance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Tao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tao's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/30/Objective-C Block Part3 - Weak-Strong Dance/" itemprop="url">
+                  Objective-C Block Part3 - Weak-Strong Dance
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-30T13:30:39+08:00">
+                2017-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="什么是-Weak-Strong-Dance-？"><a href="#什么是-Weak-Strong-Dance-？" class="headerlink" title="什么是 Weak-Strong Dance ？"></a>什么是 Weak-Strong Dance ？</h2><p>在使用的 <code>Block</code> 时， 除了使用 <code>__weak</code> 修饰符去避免循环引用外，还可以通过名为 <code>Weak-Strong Dance</code> 的方式去避免循环引用。 其实 <code>Weak-Strong Dance</code> 并不是一个新东西，它只是 <code>__weak</code> 的一个升级版本。主要目的是为了避免在极端情况下 <code>__weak</code>  这种情况会出现的问题。</p>
+<p><br></p>
+<h2 id="使用-weak-形式避免循环引用有什么问题"><a href="#使用-weak-形式避免循环引用有什么问题" class="headerlink" title="使用 __weak 形式避免循环引用有什么问题?"></a>使用 __weak 形式避免循环引用有什么问题?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">typedef void(^blk_t)();</div><div class="line"></div><div class="line">@interface TObject : NSObject</div><div class="line">@property (nonatomic) blk_t block;</div><div class="line">@end</div><div class="line">@implementation TObject</div><div class="line">- (instancetype)init &#123;</div><div class="line">    self = [super init];</div><div class="line">  </div><div class="line">    __weak typeof(self) weakSelf = self;</div><div class="line">    self.block = ^() &#123;</div><div class="line">      NSLog(@&quot;block start...&quot;);</div><div class="line">      NSLog(@&quot;self is %@&quot;, weakSelf);</div><div class="line">      NSLog(@&quot;block   end...&quot;);</div><div class="line">    &#125;;  </div><div class="line">    return self;</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>上面这段代码在大部分的情况下都是可行的，Block 捕获 weakSelf。当 self 被释放的时候， weakSelf 也会被设为 <code>nil</code>。self 持有的  Block 当然也会被设为 <code>nil</code> 。但是在多线程的情况当 block 执行到 <code>NSLog(@&quot;block start...&quot;)</code> 时， 在另一个线程中此时 self 被释放。 weakSelf 也被设为 <code>nil</code> 。那么这个例子中就会打印出 <code>self is nil</code> 。这没出现啥问题。 但是如果是移除 KVO 的观察者，或者添加到 NSDictionary 中这样的 API。值为 <code>nil</code> 就会造成程序 carsh。</p>
+<p><br></p>
+<h2 id="通过-Weak-Strong-Dance-安全的避免循环引用"><a href="#通过-Weak-Strong-Dance-安全的避免循环引用" class="headerlink" title="通过 Weak-Strong Dance 安全的避免循环引用"></a>通过 Weak-Strong Dance 安全的避免循环引用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (instancetype)init &#123;</div><div class="line">    self = [super init];</div><div class="line">    </div><div class="line">    __weak typeof(self) weakSelf = self;</div><div class="line">    self.block = ^() &#123;</div><div class="line">        __strong typeof(weakSelf) strongSelf = weakSelf;</div><div class="line">        NSLog(@&quot;%@&quot;, strongSelf);</div><div class="line">    &#125;;   </div><div class="line">    return self;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过对上面的代码增加了一句 <code>__strong typeof(weakSelf) strongSelf = weakSelf;</code> 来避免了上面说的极端情况，这就是 <code>Weak-Strong Dance</code> 。 这句话的作用在于一执行 Block 的时候，就利用一个强引用去持有 weakSelf。 这样在 Block 执行的过程中就不用担心 self 会被释放了， 因为此时有个强引用持有他。这也不会造成循环引用，因为 Block 执行时 <code>strongSelf</code> 才会指向 self，Block 执行完成后 <code>strongSelf</code> 就随着超出作用域而被系统回收了。</p>
+<p><br></p>
+<h2 id="拓展-amp-加深"><a href="#拓展-amp-加深" class="headerlink" title="拓展&amp;加深"></a>拓展&amp;加深</h2><p>在 <a href="http://weibo.com/huangjim?refer_flag=1001030101_&amp;is_all=1" target="_blank" rel="external">@kuailejim</a> 的文章 <a href="http://www.jianshu.com/p/737999a30544" target="_blank" rel="external">Weak-Strong-Dance真的安全吗？》</a> 看到个新的观点: 当刚进入 Block 时还没有为 strongSelf 赋值时，此时 weakSelf 被设置成 <code>nil</code> ，那 strongSelf 的值还是 <code>nil</code> 。 还是不够安全，所以在对 strongSelf 赋值后，再做一次非空判断。这样就绝对没毛病了:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">__weak typeof(self) weakSelf = self;</div><div class="line">self.block = ^() &#123;</div><div class="line">    __strong typeof(weakSelf) strongSelf = weakSelf;</div><div class="line">    if (strongSelf == nil) &#123;return;&#125;;</div><div class="line">    NSLog(@&quot;%@&quot;, strongSelf);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/30/Objective-C Block Part2 - 实现原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Tao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tao's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/30/Objective-C Block Part2 - 实现原理/" itemprop="url">
+                  Objective-C Block Part2 - 实现原理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-30T11:08:08+08:00">
+                2017-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Block-的本质"><a href="#Block-的本质" class="headerlink" title="Block 的本质"></a>Block 的本质</h2><p>在 <strong><a href="http://tao.bio/2017/03/26/Objective-C%20Block%20Part1%20-%20%E4%BB%8B%E7%BB%8D&amp;%E4%BD%BF%E7%94%A8/" target="_blank" rel="external">Objective-C Block Part1</a></strong>  中总结了 Block 的一些使用规则，但是为什么要遵循这些规则，还有这些规则是怎么来的？ 这就需要探寻 Block 的本质，明白它的实现原理。</p>
+<blockquote>
+<p><strong>注:</strong>  我们通过 clang 把包含 Block 的 Objective-C 的代码转换成 C++ 实现代码，以此来分析 Block 的实现原理。通过 clang 重写的代码仅供我们分析和参考，在极少数地方和实际运行时有细微出入。</p>
+</blockquote>
+<p><br></p>
+<h4 id="简单-Block-转换后的代码分析"><a href="#简单-Block-转换后的代码分析" class="headerlink" title="简单 Block 转换后的代码分析"></a>简单 Block 转换后的代码分析</h4><p>下面通过 <code>clang -rewrite-objc main.m</code> 把一个简单的 Block 转换成 C++ 代码 <code>main.cpp</code> :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/** 转换前的 Objective-C 代码: */</div><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    char *name = &quot;Steve Jobs&quot;;</div><div class="line">    ^() &#123;</div><div class="line">        printf(&quot;hello %s :)&quot;, name);</div><div class="line">    &#125;();</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** 转换后裁剪出的重要代码: */</span></div><div class="line"><span class="keyword">struct</span> __block_impl &#123;</div><div class="line">    <span class="keyword">void</span> *isa;</div><div class="line">    <span class="keyword">int</span> Flags;</div><div class="line">    <span class="keyword">int</span> Reserved;</div><div class="line">    <span class="keyword">void</span> *FuncPtr;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> __main_block_impl_0 &#123;</div><div class="line">  <span class="keyword">struct</span> __block_impl impl;</div><div class="line">  <span class="keyword">struct</span> __main_block_desc_0* Desc;</div><div class="line">  <span class="keyword">char</span> *name;</div><div class="line">  __main_block_impl_0(<span class="keyword">void</span> *fp, <span class="keyword">struct</span> __main_block_desc_0 *desc, <span class="keyword">char</span> *_name, <span class="keyword">int</span> flags=<span class="number">0</span>) : name(_name) &#123;</div><div class="line">    impl.isa = &amp;_NSConcreteStackBlock;</div><div class="line">    impl.Flags = flags;</div><div class="line">    impl.FuncPtr = fp;</div><div class="line">    Desc = desc;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> __main_block_func_0(<span class="keyword">struct</span> __main_block_impl_0 *__cself) &#123;</div><div class="line">    <span class="keyword">char</span> *name = __cself-&gt;name; <span class="comment">// bound by copy</span></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"hello %s :)"</span>, name);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">struct</span> __main_block_desc_0 &#123;</div><div class="line">  <span class="keyword">size_t</span> reserved;</div><div class="line">  <span class="keyword">size_t</span> Block_size;</div><div class="line">&#125; __main_block_desc_0_DATA = &#123; <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> __main_block_impl_0)&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[])</span> </span>&#123;</div><div class="line">    <span class="keyword">char</span> *name = <span class="string">"Steve Jobs"</span>;</div><div class="line">    ((<span class="keyword">void</span> (*)())&amp;__main_block_impl_0((<span class="keyword">void</span> *)__main_block_func_0, &amp;__main_block_desc_0_DATA, name))();</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>我们看到 Block 的本质其实就是一个名为 <code>__main_block_impl_0</code> 的结构体。这个结构体包含的主要内容:</strong> </p>
+<ol>
+<li><code>__block_impl</code> 结构体的变量。 (block 结构体的第一个成员都是 <code>__block_impl</code>, 所以 <code>__block_impl</code> 是 block 的基础结构体。</li>
+<li><code>__main_block_desc_0</code> 结构体的变量。( <code>__main_block_desc_0</code> 是描述 block 的结构体。</li>
+<li><strong>可选的</strong> 被截获的成员，例如本例的 <code>char *name</code> ，这一块下一节细述。</li>
+<li><code>__main_block_impl_0</code> 结构体的构造函数</li>
+</ol>
+<p><br></p>
+<p><strong>再来分析一下 <code>__main_block_impl_0</code> 结构体的第一个成员 <code>__block_impl</code> 结构体里的内容:</strong></p>
+<ol>
+<li><code>void *isa;</code>  (所有的 OC 对象的都有 isa指针，这也说明 Block 是一个 OC 对象。</li>
+<li><code>int Flags;</code>  (用于按 bit 位表示一些 block 的附加信息。</li>
+<li><code>int Reserved;</code>  (保留变量。</li>
+<li><code>void *FuncPtr;</code>  (block 执行的函数指针，这个函数指针包含的是 OC 里面写在 Block 里面的代码。</li>
+</ol>
+<p><br></p>
+<p><strong><code>__main_block_desc_0</code> 的内容:</strong></p>
+<ol>
+<li><code>size_t reserved;</code>  (保留变量</li>
+<li><code>size_t Block_size;</code>  (保存 Block 的大小</li>
+</ol>
+<p><br></p>
+<h2 id="Block-截获变量"><a href="#Block-截获变量" class="headerlink" title="Block 截获变量"></a>Block 截获变量</h2><p>上面一节大概了解了 Block 是个什么东西，这一节则会进行更深入的探索，搞清楚 Block 对各种类型的变量在内部是如何处理。下面通过 clang 转换一个包含各种变量的 Block 来分析这些问题:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">/** 转换前的 Objective-C 代码(ARC): */</div><div class="line">typedef void(^blk_t)();</div><div class="line"></div><div class="line">static int static_global_val = 1;       // 静态全局变量(C</div><div class="line">static NSObject *static_global_obj;     // 静态全局变量(OC</div><div class="line">int global_val = 1;                     // 全局变量(C</div><div class="line">NSObject *global_obj;                   // 全局变量(OC</div><div class="line"></div><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    int automatic_val = 1;                                   // 自动变量(C</div><div class="line">    NSObject *automatic_obj = [NSObject new];      		    // 自动变量(OC</div><div class="line">    </div><div class="line">    __block int __block_val = 1;                             // __block变量(C</div><div class="line">    __block NSObject *__block_obj = [NSObject new]; 		// __block变量(OC</div><div class="line">    </div><div class="line">    static int static_val = 1;                               // 静态变量(C</div><div class="line">    static NSObject *static_obj;                             // 静态变量(OC</div><div class="line">    </div><div class="line">    static_global_obj = [NSObject new];</div><div class="line">    global_obj = [NSObject new];</div><div class="line">    static_obj = [NSObject new];</div><div class="line">    </div><div class="line">    blk_t block = ^&#123;</div><div class="line">      static_global_val = 1;</div><div class="line">      static_global_obj = [NSArray array];</div><div class="line">      global_val = 1;</div><div class="line">      global_obj = [NSArray array];  </div><div class="line">      static_val = 1;</div><div class="line">      static_obj = [NSArray array];</div><div class="line">        </div><div class="line">      __block_val = 1;</div><div class="line">      __block_obj = [NSArray array];</div><div class="line">      printf(&quot;%d,%p&quot;, automatic_val, automatic_obj);</div><div class="line">      //automatic_val = 1; 			    // 报错</div><div class="line">      //automatic_obj = [NSArray array]; // 报错</div><div class="line">    &#125;;</div><div class="line">    block();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>下面是转换成 C++ 的代码， 其中裁剪出重要的内容来显示，代码后面是分析上面问题的答案:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">/** 转换后的C++代码(ARC): */</div><div class="line">typedef void(*blk_t)();</div><div class="line"></div><div class="line">static int static_global_val = 1;</div><div class="line">static NSObject *static_global_obj;</div><div class="line">int global_val = 1;</div><div class="line">NSObject *global_obj;</div><div class="line"></div><div class="line">struct __Block_byref___block_val_0 &#123;</div><div class="line">  void *__isa;</div><div class="line">  __Block_byref___block_val_0 *__forwarding;</div><div class="line">  int __flags;</div><div class="line">  int __size;</div><div class="line">  int __block_val;</div><div class="line">&#125;;</div><div class="line">struct __Block_byref___block_obj_1 &#123;</div><div class="line">  void *__isa;</div><div class="line">  __Block_byref___block_obj_1 *__forwarding;</div><div class="line">  int __flags;</div><div class="line">  int __size;</div><div class="line">  void (*__Block_byref_id_object_copy)(void*, void*);</div><div class="line">  void (*__Block_byref_id_object_dispose)(void*);</div><div class="line">  NSObject *__block_obj;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">struct __main_block_impl_0 &#123;</div><div class="line">  struct __block_impl impl;</div><div class="line">  struct __main_block_desc_0* Desc;</div><div class="line">  int *static_val;</div><div class="line">  NSObject **static_obj;</div><div class="line">  int automatic_val;</div><div class="line">  NSObject *automatic_obj;</div><div class="line">  __Block_byref___block_val_0 *__block_val; // by ref</div><div class="line">  __Block_byref___block_obj_1 *__block_obj; // by ref</div><div class="line">  </div><div class="line">  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int *_static_val, NSObject **_static_obj, int _automatic_val, NSObject *_automatic_obj, __Block_byref___block_val_0 *___block_val, __Block_byref___block_obj_1 *___block_obj, int flags=0) : static_val(_static_val), static_obj(_static_obj), automatic_val(_automatic_val), automatic_obj(_automatic_obj), __block_val(___block_val-&gt;__forwarding), __block_obj(___block_obj-&gt;__forwarding) &#123; </div><div class="line">    impl.isa = &amp;_NSConcreteStackBlock;</div><div class="line">    impl.Flags = flags;</div><div class="line">    impl.FuncPtr = fp;</div><div class="line">    Desc = desc;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">static struct __main_block_desc_0 &#123;</div><div class="line">    size_t reserved;</div><div class="line">    size_t Block_size;</div><div class="line">    void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);</div><div class="line">    void (*dispose)(struct __main_block_impl_0*);</div><div class="line">&#125; __main_block_desc_0_DATA = &#123;0,sizeof(struct __main_block_impl_0),__main_block_copy_0,__main_block_dispose_0&#125;;</div><div class="line"></div><div class="line">static void __main_block_func_0(struct __main_block_impl_0 *__cself) &#123;</div><div class="line">  __Block_byref___block_val_0 *__block_val = __cself-&gt;__block_val; // bound by ref</div><div class="line">  __Block_byref___block_obj_1 *__block_obj = __cself-&gt;__block_obj; // bound by ref</div><div class="line">  int *static_val = __cself-&gt;static_val;	   // bound by copy</div><div class="line">  NSObject **static_obj = __cself-&gt;static_obj; // bound by copy</div><div class="line"></div><div class="line">    static_global_val = 1;</div><div class="line">    static_global_obj = objc_msgSend(objc_getClass(&quot;NSArray&quot;), sel_registerName(&quot;array&quot;));</div><div class="line">    global_val = 1;</div><div class="line">    global_obj = objc_msgSend(objc_getClass(&quot;NSArray&quot;), sel_registerName(&quot;array&quot;));</div><div class="line"></div><div class="line">    (*static_val) = 1;</div><div class="line">    (*static_obj) = objc_msgSend(objc_getClass(&quot;NSArray&quot;), sel_registerName(&quot;array&quot;));</div><div class="line">    (__block_val-&gt;__forwarding-&gt;__block_val) = 1;</div><div class="line">    (__block_obj-&gt;__forwarding-&gt;__block_obj) = objc_msgSend(objc_getClass(&quot;NSArray&quot;), sel_registerName(&quot;new&quot;));</div><div class="line">&#125;</div><div class="line"></div><div class="line">static void __main_block_copy_0(struct __main_block_impl_0*dst, struct __main_block_impl_0*src&#123;...&#125;</div><div class="line">static void __main_block_dispose_0(struct __main_block_impl_0*src) &#123;...&#125;</div><div class="line"></div><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    int automatic_val = 1;</div><div class="line">    NSObject *automatic_obj = objc_msgSend((id)objc_getClass(&quot;NSObject&quot;), sel_registerName(&quot;new&quot;));</div><div class="line">  </div><div class="line">    __Block_byref___block_val_0 __block_val = &#123;(void*)0,&amp;__block_val,0,sizeof(__Block_byref___block_val_0),1&#125;;</div><div class="line">    __Block_byref___block_obj_1 __block_obj = &#123;(void*)0, &amp;__block_obj, 33554432, sizeof(__Block_byref___block_obj_1), __Block_byref_id_object_copy_131, __Block_byref_id_object_dispose_131, objc_msgSend(objc_getClass(&quot;NSObject&quot;), sel_registerName(&quot;new&quot;))&#125;;</div><div class="line"></div><div class="line">    static int static_val = 1;</div><div class="line">    static NSObject *static_obj;</div><div class="line"></div><div class="line">    static_global_obj = objc_msgSend(objc_getClass(&quot;NSObject&quot;), sel_registerName(&quot;new&quot;));</div><div class="line">    global_obj = objc_msgSend(objc_getClass(&quot;NSObject&quot;), sel_registerName(&quot;new&quot;));</div><div class="line">    static_obj = objc_msgSend(objc_getClass(&quot;NSObject&quot;), sel_registerName(&quot;new&quot;));</div><div class="line">    </div><div class="line">    blk_t block = ((void (*)())&amp;__main_block_impl_0(__main_block_func_0, &amp;__main_block_desc_0_DATA, &amp;static_val, &amp;static_obj, automatic_val, automatic_obj, &amp;__block_val, &amp;__block_obj, 570425344));</div><div class="line">  </div><div class="line">    ((void (*)(__block_impl *))((__block_impl *)block)-&gt;FuncPtr)((__block_impl *)block);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="1-Block-怎么处理自动变量"><a href="#1-Block-怎么处理自动变量" class="headerlink" title="1. Block 怎么处理自动变量?"></a>1. Block 怎么处理自动变量?</h4><p>从上面的  C++ 代码中可以看出，在 Block 对应的 <code>__main_block_impl_0</code> struct 中有和自动变量 <code>automatic_val</code> <code>automatic_obj</code>  相同的类型的结构体成员。 <code>__main_block_impl_0</code>  struct 的构造方法 <code>__main_block_impl_0</code> 的参数中也会接受 <code>automatic_val</code> <code>automatic_obj</code> 同类型的参数，然后把其赋值给对应的 strcut 成员。 可以看下在 <code>main</code> 函数中对 <code>__main_block_impl_0</code> 构造函数的调用。 这里有几个值得注意的点: </p>
+<ol>
+<li><p>对于 <code>C 基础类型</code>  <code>automatic_val</code> 直接传递的是值 <code>1</code> , 所以 mian 函数中定义的 <code>int automatic_val</code>  和 Block 对应结构体中的 <code>automatic_val</code>  结构体成员不是同一个变量。通过下面的小例子可以证明:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">  int automatic_val = 1;</div><div class="line">  blk_t block = ^ &#123; printf(&quot;inside  in room val:%d \n&quot;,automatic_val);&#125;;</div><div class="line">  automatic_val = 2;</div><div class="line">  printf(&quot;outside in room val:%d \n&quot;,automatic_val);</div><div class="line">  </div><div class="line">  block();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>下面是上面代码的输出，可以看到在 Block 外改变 val 的值根本影响不到 Block 内的值，因为他们不在同一块内存上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">outside in room val:2 </div><div class="line">inside  in room val:1</div></pre></td></tr></table></figure>
+</li>
+<li><p>对于 <code>OC 对象类型</code> <code>automatic_obj</code> 是直接传递指针，和 <code>automatic_val</code> 同理，如果在 Block  外新建一个 <code>OC 对象类型</code> 的指针，再赋值给 <code>automatic_obj</code> 变量也对 Block 内的 <code>automatic_obj</code> 结构体成员是没有影响的，因为这两个变量里面此时装的已经是不同的指针了。 但是当它们装的是同一个指针时，是可以通过调用对象的方法来相互影响的， 举个栗子，在 Block 外更改可变数组里的内容是会影响到 Block 内部的可变数组的，因为此时这两个变量是装的同一个指针:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    NSMutableArray *automatic_obj = [NSMutableArray arrayWithObjects:@&quot;1&quot;, @&quot;2&quot;, nil];</div><div class="line">    blk_t block = ^ &#123;</div><div class="line">        NSLog(@&quot;inside  in room obj: %@&quot;, automatic_obj);</div><div class="line">    &#125;;</div><div class="line">    [automatic_obj addObject:@&quot;3&quot;];</div><div class="line">    NSLog(@&quot;outside in room obj: %@&quot;, automatic_obj);</div><div class="line">  </div><div class="line">    block();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在  Block 对应的 <code>__main_block_impl_0</code> struct 中，修饰 <code>automatic_obj</code> 的是 strong 所有权修饰符，所以 Block 会对这个对象进行持有， 为什么系统这么去设计让 Block 持有自动变量? 是因为 Block 能够超出其所在的函数作用域存在，而 <code>OC 对象类型</code> 的自动变量在超出函数作用域时就会被释放被释放，Block 此时执行时这个对象已经被销毁了。为了避免这种情况 Block 持有了 <code>OC 对象类型</code> 的自动变量。</p>
+</li>
+</ol>
+<p><br></p>
+<h4 id="2-Block-怎么处理-静态全局变量-全局变量-静态变量"><a href="#2-Block-怎么处理-静态全局变量-全局变量-静态变量" class="headerlink" title="2. Block 怎么处理 静态全局变量 / 全局变量 / 静态变量 ?"></a>2. Block 怎么处理 静态全局变量 / 全局变量 / 静态变量 ?</h4><p>之所以把这三种变量归纳到一起，是因为它们的生命周期在一个程序中会一直存在。 Block 中使用 <code>静态全局变量</code> 和 <code>全局变量</code> 时，因为它们的作用域是全局的，并且是在程序中一直存在的，所以转换后这部分没有任何变化可以直接使用，并且可以在 Block 中重新赋值。 Block 中使用 <code>静态变量</code> 转换后会在 Block 对应的 <code>__main_block_impl_0</code> struct 中追加这个 <code>静态变量</code> 的类型的指针，然后通过 strcut 的构造函数传递进去，通过这种方式扩大了这个静态变量可访问的作用域， 使其可以在 <code>__main_block_func_0</code> 函数中访问。同时也因为传递的是 <code>静态变量</code> 类型的指针所以具备了重新赋值的能力。 </p>
+<p><br></p>
+<h4 id="3-Block-怎么处理-block-修饰的自动变量"><a href="#3-Block-怎么处理-block-修饰的自动变量" class="headerlink" title="3. Block 怎么处理 __block 修饰的自动变量 ?"></a>3. Block 怎么处理 __block 修饰的自动变量 ?</h4><p>上面的例子中 <code>__block</code> 修饰的自动变量 <code>__block_val</code> <code>__block_obj</code>  在转换后分别变成了 <code>__Block_byref___block_val_0</code>  和<code>__Block_byref___block_val_1</code>  结构体，并且它们第一个成员都是 <code>isa 指针</code>，这说明它们都是 OC 对象。第二个成员是 <code>__forwarding 指针</code> 目前是指向这个结构体的本身。 这两个结构体分别还包含着对应的 <code>__block</code> 自动变量类型的 结构体成员。</p>
+<p><br></p>
+<h2 id="Block-的储存域"><a href="#Block-的储存域" class="headerlink" title="Block 的储存域"></a>Block 的储存域</h2><p>因为 Block 对应的结构体第一个成员是 <code>isa 指针</code> ，所以 Block 也是个 <code>OC 对象</code> ，那么 <code>isa 指针</code> 指向的就是 Block 的类了。以前我们接触到的都是 <code>_NSConcreteStackBlock</code> ，其实还有另外两种: <code>_NSConcreteGlobalBlock</code> <code>_NSConcreteMallocBlock</code> 。 这一节就是来探讨这三种 Block 的不同和作用。</p>
+<p><br></p>
+<h4 id="三种-Block-在内存的存储区域"><a href="#三种-Block-在内存的存储区域" class="headerlink" title="三种 Block 在内存的存储区域"></a>三种 Block 在内存的存储区域</h4><ul>
+<li><code>_NSConcreteStackBlock</code> 类的 Block 对象是设置栈区上的，超出其所在的函数作用域就会被释放。</li>
+<li><code>_NSConcreteGlobalBlock</code> 类的 Block 对象是设置在 .data 区上，在程序运行时永久存在的。</li>
+<li><code>_NSConcreteMallocBlock</code> 类的 Block 对象是设置在堆区上。</li>
+</ul>
+<h4 id="怎么区分这三种-Block"><a href="#怎么区分这三种-Block" class="headerlink" title="怎么区分这三种 Block"></a>怎么区分这三种 Block</h4><p><strong>_NSConcreteGlobalBlock</strong> </p>
+<ul>
+<li>在所有方法外定义的 Block 为 <code>Global Block</code></li>
+<li>当 Block 中没有截获自动变量是为 <code>Global Block</code></li>
+</ul>
+<p><strong>_NSConcreteMallocBlock</strong> </p>
+<p><code>Malloc Block</code> 是 <code>Stack Block</code> 被执行 copy 操作后得到的。它能让 Block 超出函数/方法的作用域而存在。</p>
+<p><strong>_NSConcreteStackBlock</strong>  </p>
+<p>除了上面的情况，剩下的就都是 <code>Stack Block</code> 了。当其所在的函数作用域结束时，这个 Block 就会被回收。</p>
+<p><br></p>
+<h4 id="那些情况系统会自动帮你调用-copy-方法"><a href="#那些情况系统会自动帮你调用-copy-方法" class="headerlink" title="那些情况系统会自动帮你调用 copy 方法"></a>那些情况系统会自动帮你调用 copy 方法</h4><p>通过 copy 操作可以让 <code>Stack Block</code> 拷贝成 <code>Malloc Block</code>，但是在一些情况下，系统会自动的帮我们执行 copy 操作:</p>
+<ul>
+<li><code>ARC</code> Block 作为函数返回值返回时会自动对 Block 执行 copy 操作。</li>
+<li><code>ARC</code> 下将 Block 赋值给附有 <code>__strong</code>  修饰符的变量时。 所以在 <code>ARC</code> 下不用调用 copy 操作，直接把它赋值给 <code>__strong</code> 变量就可以达到效果，还有对于 Block 类型的 @property 的 attribute 不用写 copy。直接使用默认的 <code>__strong</code> ，有太多人在 <code>ARC</code> 下还是用 copy 去修饰。 完全没有必要</li>
+<li>在方法名中含有 usingBlock 的 Cocoa 框架方法或 Grand Central Dispatch 的 API 中传递 Block 时。</li>
+</ul>
+<p><br></p>
+<h4 id="Block-copy-时会发生什么-会造成什么影响"><a href="#Block-copy-时会发生什么-会造成什么影响" class="headerlink" title="Block copy 时会发生什么? 会造成什么影响?"></a>Block copy 时会发生什么? 会造成什么影响?</h4><p>大部分的 Block 对象是设置在栈内存上的，为了使 Block 能够超出其函数作用域的范围。可以使用 copy 操作将其从栈内存拷贝到堆内存中。对于 Block 中的 <code>__block</code> 变量一开始它也是配置在栈内存中的，在超出函数作用域时它也会被释放。所以在拷贝 Block 对象到堆内存中时，也会同时拷贝这个 Block 使用的 <code>__block</code> 变量到堆内存中。 当多个 Block 对象同时使用一个 <code>__block</code> 变量时，如果其中有个 Block 已经把 <code>__block</code> 变量拷贝到堆内存上了。后面的 Block 再次对这个 <code>__block</code> 变量执行 copy 操作时只会增加这个  <code>__block</code> 变量的持有。 等 Block 销毁时就会减少 <code>__block</code> 变量的持有。当没有 Block 持有 <code>__block</code> 变量时它就会被回收。这和我们一直使用的引用计数的内存管理方式相同。</p>
+<p><br></p>
+<h4 id="为什么要设计-forwarding-这个东西"><a href="#为什么要设计-forwarding-这个东西" class="headerlink" title="为什么要设计 __forwarding 这个东西?"></a>为什么要设计 __forwarding 这个东西?</h4><p>上一节的例子中 <code>__block_val</code> <code>__block_obj</code> 这两个 <code>__block</code> 变量在被转换后，分别变成了 <code>__Block_byref___block_val_0</code> <code>__Block_byref___block_val_1</code> 结构体，并且结构体的第二个成员都是 <code>__forwarding</code> 指针。 这个 <code>__forwarding</code> 指针目前是指向自己的。为什么要去设计 <code>__forwarding</code> 指针这个东西？这需要刚才讨论的 Block 对象的拷贝结合在一起看。</p>
+<p><code>__forwarding</code> 指针存在的意义是不管 <code>__block</code> 变量是配置在栈上还是堆上，都能够正确的访问变量。当 Block 对象被拷贝到堆内存中是， <code>__block</code> 变量也被拷贝到堆内存中。那么此时可以同时访问栈上的 <code>__block</code> 变量 和 堆上的 <code>__block</code> 变量。他们都是通过下面的方式访问的， 都是通过 <code>__forarding</code> 指针: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">__block_val-&gt;__forwarding-&gt;__block_val</div><div class="line">__block_obj-&gt;__forwarding-&gt;__block_obj</div></pre></td></tr></table></figure>
+<p>栈上的 <code>__block</code> 在被拷贝到堆内存时，会改变栈内存的 <code>__forwarding</code> 指针，让其指向堆内存的 <code>__block</code> 变量。 所以通过这个设计让 访问的 <code>__block</code> 变量无论在 Block 中还是 Block外，<code>__block</code>变量是在堆内存还是栈内存上，访问的都是同一个 <code>__block</code> 变量。</p>
+<p><br></p>
+<h4 id="为什么-Block-中的静态变量可以修改，-而自动变量不能修改"><a href="#为什么-Block-中的静态变量可以修改，-而自动变量不能修改" class="headerlink" title="为什么 Block 中的静态变量可以修改， 而自动变量不能修改?"></a>为什么 Block 中的静态变量可以修改， 而自动变量不能修改?</h4><p>上面讲到 Block 对应的结构体因为保存的是 <code>静态变量</code> 的类型的指针，所以 <code>静态变量</code> 可以在 Block 中被重新赋值。那自动变量为什么不也设计成这样，使其拥有在 Block 中被重新赋值的能力呢?  这是因为自动变量的超出其所在的函数作用域时就会被销毁掉。但是 Block 又可以超出其自身作用域而存在。如果像对待 <code>静态变量</code> 那样去对待 <code>自动变量</code> ，很可能出现的情况就是当 Block 去操作/访问 <code>自动变量</code> 时。自动变量已经被销毁。</p>
+<p><br></p>
+<h2 id="小测验"><a href="#小测验" class="headerlink" title="小测验"></a>小测验</h2><p>这个关于 Block 的<a href="http://blog.parse.com/learn/engineering/objective-c-blocks-quiz/" target="_blank" rel="external">小测试</a> 这是在唐巧的 blog 《<a href="http://blog.devtang.com/2013/07/28/a-look-inside-blocks/" target="_blank" rel="external">谈Objective-C block的实现</a>》 中发现的， 觉得很能考察对 Block 的理解程度，做到全对感觉对 Block 了解就很清楚了。</p>
+<p><br></p>
+<h2 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h2><p><a href="https://book.douban.com/subject/24720270/" target="_blank" rel="external">Objective-C 高级编程</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/26/Objective-C Block Part1 - 介绍&使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Tao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tao's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/26/Objective-C Block Part1 - 介绍&使用/" itemprop="url">
+                  Objective-C Block Part1 - 介绍&使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-26T16:11:12+08:00">
+                2017-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="什么是-Block-？"><a href="#什么是-Block-？" class="headerlink" title="什么是 Block ？"></a>什么是 Block ？</h2><p>Block 是苹果在 <code>iOS4</code> 添加的特性。它是一个带自动变量(局部变量)的匿名函数，同时也是 <code>OC 对象类型</code>，所以可以把 Block 赋值给一个变量，也可以存储在 <code>NSArray</code> <code>NSDictionary</code> 这样的容器中，或者作为函数返回值。Block 等同于其他语言中的 <code>closure</code> <code>lambda</code>。 Block 使用简单方便，在很多场景下可以替代 delegate。Block 在系统提供的 API 中也是随处可见。</p>
+<h2 id="Block-的语法"><a href="#Block-的语法" class="headerlink" title="Block 的语法"></a>Block 的语法</h2><p>下面是一个完整的 Block 定义规则，Block 标志性的标识是 <code>^</code>  (caret 脱字符号)，这是每个 Block 必须拥有的。剩下的和匿名函数相同。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">^ 返回值类型 (参数列表) &#123;表达式&#125;;</div><div class="line">^ int(int v1, int v2) &#123;return v1 + v2;&#125;;</div></pre></td></tr></table></figure>
+<p>如果返回值类型为 <code>void</code> ， 没有参数，这些都是可以省略，下面最简模式的 Block:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">^&#123;表达式&#125;;</div><div class="line">^&#123;printf(&quot;hello world!&quot;);&#125;;</div></pre></td></tr></table></figure>
+<p>Block 也是 <code>OC 对象类型</code> 可以把 Block 赋值给变量或类属性。也可以通过 <code>typedef</code> 去简化定义 Block 类型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">typedef void(^blk_t)(); // 用 typedef 定义 Block 类型</div><div class="line"></div><div class="line">void(^block1)() = ^&#123;printf(&quot;简化前&quot;);&#125;;</div><div class="line">blk_t block2 = ^&#123;printf(&quot;简化后&quot;);&#125;;</div></pre></td></tr></table></figure>
+<h2 id="Block-的使用规则"><a href="#Block-的使用规则" class="headerlink" title="Block 的使用规则"></a>Block 的使用规则</h2><h4 id="捕获变量"><a href="#捕获变量" class="headerlink" title="捕获变量"></a>捕获变量</h4><p>Block 一个很大的优点就是可以捕获外部变量在 Block 内使用，并且除了特定情况，只要 Block 存在这个被捕获的变量就能够一直使用。 这个规则对 <code>局部变量</code> <code>静态变量</code> <code>全局变量</code> <code>静态全局变量</code> 都有效。但是其中的 <code>局部变量</code> 不能够在 Block 中被重新赋值。可以对 <code>局部变量</code> 加上 <code>__block</code> 说明符去解决这个问题。 下面举一个栗子来佐证刚才的说法，以下代码基于 <code>ARC</code> :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">typedef void(^blk_t)();</div><div class="line"></div><div class="line">static int static_global_val = 1;                       // 静态全局变量(C  基础类型</div><div class="line">static id static_global_obj;                            // 静态全局变量(OC 对象类型</div><div class="line">int global_val = 1;                                     // 全局变量(C  基础类型</div><div class="line">id  global_obj;                                         // 全局变量(OC 对象类型</div><div class="line"></div><div class="line">@interface TObject : NSObject</div><div class="line">@property (nonatomic) blk_t block;</div><div class="line">@end</div><div class="line"></div><div class="line">@implementation TObject</div><div class="line">- (instancetype)init &#123;</div><div class="line">    self = [super init];</div><div class="line">  </div><div class="line">    int automatic_val = 1;                             // 自动变量(C  基础类型</div><div class="line">    id  automatic_obj = [[NSObject alloc] init];       // 自动变量(OC 对象类型</div><div class="line">    static int static_val = 1;                         // 静态变量(C  基础类型</div><div class="line">    static id  static_obj;                             // 静态变量(OC 对象类型</div><div class="line">    </div><div class="line">    static_global_obj = [NSObject new];</div><div class="line">    global_obj = [NSObject new];</div><div class="line">    static_obj = [NSObject new];</div><div class="line">    </div><div class="line">    self.block = ^&#123;</div><div class="line">        NSLog(@&quot;static_global_val: %d&quot;, static_global_val);</div><div class="line">        NSLog(@&quot;static_global_obj: %@&quot;, static_global_obj);</div><div class="line">        NSLog(@&quot;global_val: %d&quot;, global_val);</div><div class="line">        NSLog(@&quot;global_obj: %@&quot;, global_obj);</div><div class="line">        NSLog(@&quot;static_val: %d&quot;, static_val);</div><div class="line">        NSLog(@&quot;static_obj: %@&quot;, static_obj);</div><div class="line">        NSLog(@&quot;automatic_val: %d&quot;, automatic_val);</div><div class="line">        NSLog(@&quot;automatic_obj: %@&quot;, automatic_obj);</div><div class="line">        </div><div class="line">        static_global_val = 0;</div><div class="line">        static_global_obj = [NSArray array];</div><div class="line">        global_val = 0;</div><div class="line">        global_obj = [NSArray array];</div><div class="line">        static_val = 0;</div><div class="line">        static_obj = [NSArray array];</div><div class="line">      </div><div class="line">//        automatic_val = 0;</div><div class="line">//        automatic_obj = [NSArray array];</div><div class="line">    &#125;;</div><div class="line">    return self;</div><div class="line">&#125;</div><div class="line">@end</div><div class="line"></div><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">  </div><div class="line">    TObject *obj = [[TObject alloc] init];</div><div class="line">    obj.block();</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的例子定义了各种各样的变量并在 block 中使用它们，通过观察他们的表现来佐证我们的观点。在 Block 中注释的两行代码试图去更改 <code>C 对象类型</code> 和 <code>OC 对象类型</code> 的自动变量，但是并没有成功。这里编译器均会报错:  <code>Variable is not assignable (missing __block type specifier)</code> ，编译器告诉我们这两个变量不能被赋值，可以通过加上 <code>__block</code> 说明符去解决这个问题。这刚好验证了上面的说法。 下面的代码块里的内容是上面代码执行后的输出。虽然在 main 函数中执行 block 时，自动变量 <code>automatic_val</code> <code>automatic_obj</code> 已经超出了其所在的函数作用域，但是仍然能打印出里面的值。这点也是符合预期的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">2017-03-26 20:15:34.264803 BlockDemo[75799:23910278] static_global_val: 1</div><div class="line">2017-03-26 20:15:34.265551 BlockDemo[75799:23910278] static_global_obj: &lt;NSObject: 0x100202e00&gt;</div><div class="line">2017-03-26 20:15:34.265579 BlockDemo[75799:23910278] global_val: 1</div><div class="line">2017-03-26 20:15:34.265724 BlockDemo[75799:23910278] global_obj: &lt;NSObject: 0x1002000c0&gt;</div><div class="line">2017-03-26 20:15:34.265773 BlockDemo[75799:23910278] static_val: 1</div><div class="line">2017-03-26 20:15:34.265825 BlockDemo[75799:23910278] static_obj: &lt;NSObject: 0x100203b00&gt;</div><div class="line">2017-03-26 20:15:34.265860 BlockDemo[75799:23910278] automatic_val: 1</div><div class="line">2017-03-26 20:15:34.265927 BlockDemo[75799:23910278] automatic_obj: &lt;NSObject: 0x1002024b0&gt;</div></pre></td></tr></table></figure>
+<h4 id="正确的储存-Block"><a href="#正确的储存-Block" class="headerlink" title="正确的储存 Block"></a>正确的储存 Block</h4><p>文章的开头我们就讲到了 Block 是一个 OC 对象， 可以把它赋值给一个变量存储起来。但是这里 Block 和普通OC对象还是有一点细小的区别的，操作不当有可能 Block 就会被提前释放掉。</p>
+<p><code>MRC</code> 下要储存定义在函数内并且截获了自动变量的 Block 时。 如果期望它能超出函数作用域之外，需要先对 Block 进行 <code>copy</code> 操作，然后把返回的结果赋值给变量。或者赋值给 <code>Property</code> 时需要把它的 <code>attribute</code> 设置为 <code>copy</code> ，例如: <code>@property (copy) blk_t block;</code> 。 此时就和管理普通对象的内存无异了。可以对其 <code>retain</code> <code>release</code> 。</p>
+<p><code>ARC</code> 下则完全和普通对象一样，使用 <code>__strong</code> 的修饰符的变量就好。不需要像 <code>MRC</code> 下去做 <code>copy</code> 操作</p>
+<h4 id="避免循环引用"><a href="#避免循环引用" class="headerlink" title="避免循环引用"></a>避免循环引用</h4><p>上面已经展示过 Block 可以捕获自动变量，并且可以让其超过它自身所在的函数作用域而存在。Block 能有这个功能只是因为它持有了这个变量，这个变量只要 Block 存在它就会存在。但是这样会有一个安全隐患—会产生循环引用。例如下面的例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/// 运行在 ARC 下:</div><div class="line">typedef void(^blk_t)();</div><div class="line"></div><div class="line">@interface TObject : NSObject</div><div class="line">@property (nonatomic, copy) blk_t block;</div><div class="line">@end</div><div class="line"></div><div class="line">@implementation TObject</div><div class="line">- (instancetype)init &#123;</div><div class="line">    self = [super init];</div><div class="line">    self.block = ^&#123; NSLog(@&quot;%@&quot;, self); &#125;;</div><div class="line">    return self;</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>上面你的代码，self 持有 block，但 block 也持有了 self。所以就循环引用了，谁也释放不了谁，造成内存泄漏。解决办法如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (instancetype)init &#123;</div><div class="line">    self = [super init];</div><div class="line">    </div><div class="line">    __block __typeof(self) weakSelf = self;	// MRC 的情况下</div><div class="line">    __weak __typeof(self) weakSelf = self;  // ARC 的情况下</div><div class="line">    self.block = ^&#123; NSLog(@&quot;%@&quot;, weakSelf);&#125;;</div><div class="line">    return self;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在 <code>MRC</code> 下使用 <code>__block</code> 说明符去避免循环引用</p>
+<p>在 <code>ARC</code> 下使用 <code>__weak</code> 修饰符去避免循环应用</p>
+<p>这两种方法都能在对应的内存管理机制下，让 Block 不 <code>retain</code> 或 强持有 截获的 self。 因为 self 持有 block。 所以也不用担心 block 执行时 self 会被释放。这就解决 Block 循环引用的问题。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/21/iOS Grand Central Dispatch 的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Tao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tao's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/21/iOS Grand Central Dispatch 的使用/" itemprop="url">
+                  iOS Grand Central Dispatch 的使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-21T20:15:26+08:00">
+                2017-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="什么是-GCD"><a href="#什么是-GCD" class="headerlink" title="什么是 GCD ?"></a>什么是 GCD ?</h1><p><code>GCD</code> 全称为 <code>Grand Central Dispatch</code> ， 是一个异步执行任务的技术之一。 一般将应用程序中线程管理用的代码再系统级中实现。 开发者只需要定义想执行的任务并追加到适当的 <code>Dispatch Queue</code> 中， <code>GCD</code> 就能生成必要的线程并计划执行任务。 由于线程管理是作为系统的一部分来实现的， 因此可统一管理，也可执行任务，这样就比以前的线程更有效率。</p>
+<p>相对于直接去写多线程的代码。通过 <code>GCD</code> 去使用多线程技术不仅非常简单，并且避免一些多线程操作中可能出现的问题。开发者要做的只是定义想执行的任务并追加到适当的 <code>Dispatch Queue</code> 中。</p>
+<h1 id="Dispatch-Queue"><a href="#Dispatch-Queue" class="headerlink" title="Dispatch Queue"></a>Dispatch Queue</h1><h4 id="Dispatch-Queue-介绍"><a href="#Dispatch-Queue-介绍" class="headerlink" title="Dispatch Queue 介绍"></a>Dispatch Queue 介绍</h4><p><code>Dispatch Queue</code> 是执行等待任务的队列。在使用 <code>GCD</code> 执行任务时，添加任务到对应的 <code>Dispatch Queue</code> 中。由 <code>Dispatch Queue</code> 控制怎么在线程上执行任务。<code>Dispatch_Queue</code> 按照任务追加的顺序执行(FIFO)。  <code>Dispatch Queue</code> 分类两种类型: </p>
+<ul>
+<li><strong>Serial Dispatch Queue:</strong> 是一个串行队列，添加到这个队列中的任务会按照顺序一个任务执行完后才会执行下一个任务。</li>
+</ul>
+<ul>
+<li><strong>Concurrent Dispatch Queue:</strong> 是一个并行队列，添加到这个队列中的任务会多个任务同时执行。但是具体同时能执行多少个任务，这个<code>XNU 内核</code> 去帮我们管理的。</li>
+</ul>
+<h4 id="创建-Dispatch-Queue"><a href="#创建-Dispatch-Queue" class="headerlink" title="创建 Dispatch Queue"></a>创建 Dispatch Queue</h4><p>获取上面两种 <code>Dispatch Queue</code> 可以通过 <code>dispatch_queue_create</code> 函数去创建。这个函数返回代表 <code>Dispatch Queue</code> 的 <code>dispatch_queue_t</code> 类型变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t dispatch_queue_create(const char *_Nullable label, dispatch_queue_attr_t _Nullable attr);</div><div class="line">// 其中第一个参数传入一个 C 字符串，作为名字来标识一个 Dispatch Queue ，这个名字在调试中非常有用，会显示在调试面板上。</div><div class="line">// 第二个参数如果创建 Serial Dispatch Queue 则填入 NULL 。 </div><div class="line">// 如果需要创建 Concurrent Dispatch Queue 则填入DISPATCH_QUEUE_CONCURRENT。</div></pre></td></tr></table></figure>
+<h4 id="获取系统提供的-Dispatch-Queue"><a href="#获取系统提供的-Dispatch-Queue" class="headerlink" title="获取系统提供的 Dispatch Queue"></a>获取系统提供的 Dispatch Queue</h4><p>如果不自己创建 <code>Dispatch Queue</code> ，系统也开发者提供了<code>Main Dispatch Queue</code> <code>Global Dispatch Queue</code> 。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t mainQueue             = dispatch_get_main_queue();</div><div class="line">dispatch_queue_t globalQueueHigh       = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);</div><div class="line">dispatch_queue_t globalQueueDefault    = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);</div><div class="line">dispatch_queue_t globalQueueLow        = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);</div><div class="line">dispatch_queue_t globalQueueBackground = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);</div><div class="line"></div><div class="line">// dispatch_get_main_queue 方法获得的是 Serial Dispatch Queue，主线程就是在这个 Dispatch Queue 内。</div><div class="line">// dispatch_get_global_queue 方法获得都是 Concurrent Dispatch Queue。其第一个参数表示优先级，第二是保留字段(填0);</div></pre></td></tr></table></figure>
+<h1 id="dispatch-async-amp-dispatch-sync"><a href="#dispatch-async-amp-dispatch-sync" class="headerlink" title="dispatch_async &amp; dispatch_sync"></a>dispatch_async &amp; dispatch_sync</h1><h4 id="dispatch-async-amp-dispatch-sync-介绍"><a href="#dispatch-async-amp-dispatch-sync-介绍" class="headerlink" title="dispatch_async &amp; dispatch_sync 介绍"></a>dispatch_async &amp; dispatch_sync 介绍</h4><p> <code>dispatch_async</code> 和 <code>dispatch_sync</code> 这两个函数都可以把 <code>Block任务</code> 绑定到指定的 <code>Dispatch Queue</code> 中执行。区别从方法名中就可以看出。<code>dispatch_async</code> 是异步执行，<code>dispatch_sync</code> 是同步执行。看具体例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">NSLog(@&quot;1...&quot;);</div><div class="line">dispatch_sync(dispatch_get_global_queue(0, 0), ^&#123;</div><div class="line">    sleep(1); NSLog(@&quot;dispatch_sync&quot;);</div><div class="line">&#125;);</div><div class="line">NSLog(@&quot;2...&quot;);</div><div class="line">dispatch_async(dispatch_get_global_queue(0, 0), ^&#123;</div><div class="line">    sleep(1); NSLog(@&quot;dispatch_async&quot;);</div><div class="line">&#125;);</div><div class="line">NSLog(@&quot;3...&quot;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 上面这段代码执行的输出是:</div><div class="line">2017-02-22 21:47:18.545 OCGCD[47679:28023198] 1...</div><div class="line">2017-02-22 21:47:19.605 OCGCD[47679:28023198] dispatch_sync</div><div class="line">2017-02-22 21:47:19.606 OCGCD[47679:28023198] 2...</div><div class="line">2017-02-22 21:47:19.606 OCGCD[47679:28023198] 3...</div><div class="line">2017-02-22 21:47:20.675 OCGCD[47679:28023256] dispatch_async</div></pre></td></tr></table></figure>
+<p>可以看出 <code>dispatch_sync</code> 这个函数会等到其 Block 内的任务执行完毕才会返回，然后继续往下执行。<code>dispatch_async</code> 则是直接返回继续往下执行，其 Block 内的任务会异步的去执行。</p>
+<h4 id="dispatch-async-amp-dispatch-sync-和线程"><a href="#dispatch-async-amp-dispatch-sync-和线程" class="headerlink" title="dispatch_async &amp; dispatch_sync 和线程"></a>dispatch_async &amp; dispatch_sync 和线程</h4><p>上面说过 <code>GCD</code> 的背后是系统内核在管理线程，那 <code>dispatch_async</code> 和 <code>dispatch_sync</code> 执行相关了队列和线程那些关联呢? 看具体例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t serial     = dispatch_queue_create(&quot;io.tao.serial&quot;, DISPATCH_QUEUE_SERIAL);</div><div class="line">dispatch_queue_t concurrent = dispatch_queue_create(&quot;io.tao.concurrent&quot;, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">dispatch_queue_t mainQueue  = dispatch_get_main_queue();</div><div class="line"></div><div class="line">dispatch_sync (serial,     ^&#123; NSLog(@&quot;1: %@&quot;, [NSThread currentThread]); &#125;);</div><div class="line">dispatch_async(serial,     ^&#123; NSLog(@&quot;2: %@&quot;, [NSThread currentThread]); &#125;);</div><div class="line">dispatch_sync (concurrent, ^&#123; NSLog(@&quot;3: %@&quot;, [NSThread currentThread]); &#125;);</div><div class="line">dispatch_async(concurrent, ^&#123; NSLog(@&quot;4: %@&quot;, [NSThread currentThread]); &#125;);</div><div class="line">dispatch_async(mainQueue,  ^&#123; NSLog(@&quot;5: %@&quot;, [NSThread currentThread]); &#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 上面这段代码执行的输出是:</div><div class="line">2017-02-22 22:29:04.783 OCGCD[50871:28074784] 1: &lt;NSThread: 0x6080000646c0&gt;&#123;number = 1, name = main&#125;</div><div class="line">2017-02-22 22:29:04.783 OCGCD[50871:28074818] 2: &lt;NSThread: 0x60000006ba40&gt;&#123;number = 3, name = (null)&#125;</div><div class="line">2017-02-22 22:29:04.783 OCGCD[50871:28074784] 3: &lt;NSThread: 0x6080000646c0&gt;&#123;number = 1, name = main&#125;</div><div class="line">2017-02-22 22:29:04.784 OCGCD[50871:28074819] 4: &lt;NSThread: 0x60000006b800&gt;&#123;number = 4, name = (null)&#125;</div><div class="line">2017-02-22 22:29:04.789 OCGCD[50871:28074784] 5: &lt;NSThread: 0x6080000646c0&gt;&#123;number = 1, name = main&#125;</div></pre></td></tr></table></figure>
+<p>由上面的例子得出，无论是 <code>Serial Dispatch Queue</code> 还是 <code>Concurrent Dispatch Queue</code></p>
+<p>通过 <code>dispatch_sync</code> 函数执行的都会在当前线程中执行任务。</p>
+<p>通过 <code>dispatch_async</code> 函数执行的都会在子线程中执行任务。</p>
+<p>但是有一个例外是 使用 <code>dispatch_async</code> 执行 <code>mainQueue</code> 队列也是在当前线程中执行的。永远都只会在主线程中执行。</p>
+<h4 id="dispatch-sync-和-死锁"><a href="#dispatch-sync-和-死锁" class="headerlink" title="dispatch_sync 和 死锁"></a>dispatch_sync 和 死锁</h4><p>细心的人可能已经发现，上面的例子没有出现下面这行代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dispatch_sync(mainQueue,  ^&#123; NSLog(@&quot;6: %@&quot;, [NSThread currentThread]); &#125;);</div></pre></td></tr></table></figure>
+<p>因为这行代码在主线程中执行时会产生死锁，程序会 <strong>Carsh</strong> 。产生死锁的原因是: 因为该代码在 <code>Main Dispatch Queue(主线程)</code> 中使用 <code>dispatch_sync</code> 在 <code>Main Dispatch Queue(主线程)</code> 上执行 <code>Block 任务</code> ， <code>Main Dispatch Queue(主线程)</code> 在一直等着 <code>dispatch_sync</code> 函数返回再继续执行，但是 <code>dispatch_sync</code> 又需要在 <code>Main Dispatch Queue(主线程)</code> 执行<code>Block 任务</code>，所以这就像是一个死胡同，永远也等不到 <code>dispatch_sync</code>  函数返回。下面这个例子也是同样的问题:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t serial = dispatch_queue_create(&quot;io.tao.q1&quot;, DISPATCH_QUEUE_SERIAL);</div><div class="line">dispatch_async(serial, ^&#123;</div><div class="line">    dispatch_sync(serial, ^&#123; NSLog(@&quot;Are you ok?&quot;); &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>所以在使用 <code>dispatch_sync</code> 函数去执行 <code>Serial Dispatch Queue</code> 队列时，要特别小心死锁的问题。在当前 <code>Dispatch Queue</code> 上去让 <code>dispatch_queue</code> 在当前 <code>Dispatch Queue</code> 执行任务时就会产生死锁。</p>
+<h1 id="dispatch-after"><a href="#dispatch-after" class="headerlink" title="dispatch_after"></a>dispatch_after</h1><h4 id="dispatch-after-介绍"><a href="#dispatch-after-介绍" class="headerlink" title="dispatch_after 介绍"></a>dispatch_after 介绍</h4><p> <code>dispatch_after</code> 可以让 <code>Block 任务</code> 在指定时间后加入到 <code>Dispatch Queue</code> 中执行，并非在指定时间后执行 <code>Block 任务</code> 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC);</div><div class="line">dispatch_after(time, dispatch_get_main_queue(), ^&#123;</div><div class="line">    NSLog(@&quot;dispatch_after&quot;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">// 上面的例子等同于 3 秒之后调用下面的代码</div><div class="line">dispatch_async(dispatch_get_main_queue(), ^&#123;</div><div class="line">	NSLog(@&quot;dispatch_after&quot;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="dispatch-time-介绍"><a href="#dispatch-time-介绍" class="headerlink" title="dispatch_time 介绍"></a>dispatch_time 介绍</h4><p>上面的例子中 <code>dispatch_after</code> 第一个参数是指定时间 <code>dispatch_time_t</code> 类型的值。<code>dispatch_time_t</code> 函数定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dispatch_time_t dispatch_time(dispatch_time_t when, int64_t delta);</div><div class="line">// 第一个参数指定时间的开始, 一般使用 DISPATCH_NOTHROW 表示现在的时间。</div><div class="line">// 第二个参数表示延后的时间，默认单位是纳秒, 可以 * NSEC_PER_SEC NSEC_PER_MSEC NSEC_PER_USEC 相关时间单位倍数来转换</div></pre></td></tr></table></figure>
+<h1 id="dispatch-apply"><a href="#dispatch-apply" class="headerlink" title="dispatch_apply"></a>dispatch_apply</h1><h4 id="dispatch-apply-介绍"><a href="#dispatch-apply-介绍" class="headerlink" title="dispatch_apply 介绍"></a>dispatch_apply 介绍</h4><p><code>dispatch_apply</code> 可以多次执行一个队列里的 Block 任务，它会为 Block 任务提供一个计次的参数。  它和 <code>dispatch_sync</code> 一样，需要等到所有 Block 任务执行完，这个函数才会返回。 所以也要主要死锁的问题，当队列是 <code>Serial Dispatch Queue</code> 时，不要在当前 <code>Dispatch Queue</code> 上去让 <code>dispatch_apply</code> 在当前 <code>Dispatch Queue</code> 执行任务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dispatch_apply(3, dispatch_get_global_queue(0, 0), ^(size_t index) &#123;</div><div class="line">    NSLog(@&quot;%zu&quot;, index);</div><div class="line">&#125;);</div><div class="line">NSLog(@&quot;done&quot;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 上面的例子的输出，done 总是在最后输出。刚好可以验证上面的说法。dispatch_applay 是同步去执行的</div><div class="line">2017-02-23 13:23:27.041 OCGCD[14310:28921393] 1</div><div class="line">2017-02-23 13:23:27.042 OCGCD[14310:28921396] 2</div><div class="line">2017-02-23 13:23:27.042 OCGCD[14310:28921344] 0</div><div class="line">2017-02-23 13:23:27.043 OCGCD[14310:28921344] done</div></pre></td></tr></table></figure>
+<h1 id="dispatch-set-target-queue"><a href="#dispatch-set-target-queue" class="headerlink" title="dispatch_set_target_queue"></a>dispatch_set_target_queue</h1><h4 id="用其设置队列的优先级"><a href="#用其设置队列的优先级" class="headerlink" title="用其设置队列的优先级"></a>用其设置队列的优先级</h4><p>上面有例子通过 <code>dispatch_get_global_queue</code> 去生成不同优先级的队列。通过 <code>dispatch_queue_create</code> 函数生成的 <strong>Dispatch Queue</strong> 的优先级都是默认的，如果要改变它们优先级可以通过 <code>dispatch_set_target_queue</code> ，看具体例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t queueHigh = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);</div><div class="line">dispatch_queue_t queue 	   = dispatch_queue_create(&quot;io.tao.serial&quot;, NULL);</div><div class="line">dispatch_set_target_queue(queue, queueHigh);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">// 上面的例子，把默认优先级的 queue， 设置成和 queueHigh 一样的高优先级</div><div class="line">// 第一个参数填入要设置的 Dispatch Queue</div><div class="line">// 第二个参数填入要参照的目标 Dispatch Queue</div></pre></td></tr></table></figure>
+<h4 id="设置多个-Serial-Dispatch-Queue-的执行顺序"><a href="#设置多个-Serial-Dispatch-Queue-的执行顺序" class="headerlink" title="设置多个 Serial Dispatch Queue 的执行顺序"></a>设置多个 Serial Dispatch Queue 的执行顺序</h4><p>多个 <code>Serial Dispatch Queue</code> 是并行执行的。但是开发碰到了要让它们串行执行的需求时，也可以通过 <code>dispatch_set_target_queue</code> 方法来实现。只需要把多个 <code>Serial Dispatch Queue</code> 设置成同一个目标  <code>Serial Dispatch Queue</code>  就可以了。看具体例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t serialQueue  = dispatch_queue_create(&quot;io.tao.serial&quot;, NULL);</div><div class="line">dispatch_queue_t serialQueue1 = dispatch_queue_create(&quot;io.tao.app.serial1&quot;, NULL);</div><div class="line">dispatch_queue_t serialQueue2 = dispatch_queue_create(&quot;io.tao.app.serial2&quot;, NULL);</div><div class="line">dispatch_queue_t serialQueue3 = dispatch_queue_create(&quot;io.tao.app.serial3&quot;, NULL);</div><div class="line"></div><div class="line">dispatch_set_target_queue(serialQueue1, serialQueue);</div><div class="line">dispatch_set_target_queue(serialQueue2, serialQueue);</div><div class="line">dispatch_set_target_queue(serialQueue3, serialQueue);</div><div class="line"></div><div class="line">NSLog(@&quot;start...&quot;);</div><div class="line">dispatch_async(serialQueue1, ^&#123;</div><div class="line">    sleep(1);</div><div class="line">    NSLog(@&quot;serialQueue1&quot;);</div><div class="line">&#125;);</div><div class="line">dispatch_async(serialQueue2, ^&#123;</div><div class="line">    NSLog(@&quot;serialQueue2&quot;);</div><div class="line">&#125;);</div><div class="line">dispatch_async(serialQueue3, ^&#123;</div><div class="line">    NSLog(@&quot;serialQueue3&quot;);</div><div class="line">&#125;);</div><div class="line">NSLog(@&quot;end...&quot;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 下面是上面例子的控制台输出。</div><div class="line">// serialQueue1, serialQueue2, serialQueue3 成功的按照顺序输出了。 </div><div class="line">2017-02-23 14:15:21.033 OCGCD[18304:28985032] start...</div><div class="line">2017-02-23 14:15:21.033 OCGCD[18304:28985032] end...</div><div class="line">2017-02-23 14:15:22.105 OCGCD[18304:28985092] serialQueue1</div><div class="line">2017-02-23 14:15:22.105 OCGCD[18304:28985092] serialQueue2</div><div class="line">2017-02-23 14:15:22.105 OCGCD[18304:28985092] serialQueue3</div></pre></td></tr></table></figure>
+<h1 id="dispatch-group"><a href="#dispatch-group" class="headerlink" title="dispatch_group"></a>dispatch_group</h1><h4 id="dispatch-group-介绍"><a href="#dispatch-group-介绍" class="headerlink" title="dispatch_group 介绍"></a>dispatch_group 介绍</h4><p><code>dispatch_group</code> 允许把多个 <strong>Dispatch Queue</strong> 添加到一个 Group 中，等 Group 中所有的 <strong>Dispatch Queue</strong> 执行完成后，Group 会执行添加的特定 <code>Block 任务</code>。无论是 <strong>Serial Dispatch Queue</strong> 还是 <strong>Concurrent Dispatch Queue</strong> 都是有效的。 这在实际开发中非常有用。看具体例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t serial     = dispatch_queue_create(&quot;io.tao.serial&quot;, NULL);</div><div class="line">dispatch_queue_t concurrent = dispatch_queue_create(&quot;io.tao.concurrent&quot;, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">dispatch_group_t group      = dispatch_group_create();</div><div class="line"></div><div class="line">dispatch_group_async(group, serial,     ^&#123; sleep(3); NSLog(@&quot;serial1&quot;);&#125;);</div><div class="line">dispatch_group_async(group, serial,     ^&#123; sleep(2); NSLog(@&quot;serial2&quot;);&#125;);</div><div class="line">dispatch_group_async(group, concurrent, ^&#123; sleep(1); NSLog(@&quot;concurrent1&quot;);&#125;);</div><div class="line">dispatch_group_async(group, concurrent, ^&#123; sleep(2); NSLog(@&quot;concurrent2&quot;);&#125;);</div><div class="line"></div><div class="line">dispatch_group_notify(group, dispatch_get_main_queue(), ^&#123;</div><div class="line">    NSLog(@&quot;Group 中所有的 Dispatch Queue 已执行完&quot;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 下面是上面例子的控制台输出。</div><div class="line">2017-02-23 14:30:06.566 OCGCD[19452:29004031] concurrent1</div><div class="line">2017-02-23 14:30:07.494 OCGCD[19452:29004033] concurrent2</div><div class="line">2017-02-23 14:30:08.494 OCGCD[19452:29004030] serial1</div><div class="line">2017-02-23 14:30:10.561 OCGCD[19452:29004030] serial2</div><div class="line">2017-02-23 14:30:10.561 OCGCD[19452:29003990] Group 中所有的 Dispatch Queue 已执行完</div></pre></td></tr></table></figure>
+<p>在添加到 <strong>Dispatch Group</strong> 中的所有任务全部执行结束后， 就会把 <code>dispatch_group_notify</code> 中的 <code>Block 任务</code> 添加对指定队列中执行。来做一些结束工作。</p>
+<h4 id="dispatch-group-wait-的使用"><a href="#dispatch-group-wait-的使用" class="headerlink" title="dispatch_group_wait 的使用"></a>dispatch_group_wait 的使用</h4><p>除了通过 <code>dispatch_group_notify</code> 获得 <strong>Dispatch Group</strong> 执行完的通知，也能通过 <code>dispatch_group_wait</code> 函数来获取结束通知。这个函数会一直等着 <strong>Dispatch Group</strong> 执行完成才会返回。 它就像是一个断点，把当前线程给断住，直到 Group 的所有任务执行完成。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t concurrent = dispatch_queue_create(&quot;io.tao.concurrent&quot;, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">dispatch_group_t group      = dispatch_group_create();</div><div class="line"></div><div class="line">dispatch_group_async(group, concurrent, ^&#123; sleep(3); NSLog(@&quot;concurrent1&quot;);&#125;);</div><div class="line">dispatch_group_async(group, concurrent, ^&#123; sleep(2); NSLog(@&quot;concurrent2&quot;);&#125;);</div><div class="line"></div><div class="line">dispatch_group_wait(group, DISPATCH_TIME_FOREVER);</div><div class="line">NSLog(@&quot;Dispatch Group 中所有任务都已执行完毕&quot;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 上面例子的控制台输出。刚好能证明上面的观点</div><div class="line">2017-02-23 14:44:16.883 OCGCD[20511:29021074] concurrent2</div><div class="line">2017-02-23 14:44:17.881 OCGCD[20511:29021077] concurrent1</div><div class="line">2017-02-23 14:44:17.882 OCGCD[20511:29021036] Dispatch Group 中所有任务都已执行完毕</div></pre></td></tr></table></figure>
+<h1 id="dispatch-barrier-async"><a href="#dispatch-barrier-async" class="headerlink" title="dispatch_barrier_async"></a>dispatch_barrier_async</h1><h4 id="dispatch-barrier-async-介绍"><a href="#dispatch-barrier-async-介绍" class="headerlink" title="dispatch_barrier_async 介绍"></a>dispatch_barrier_async 介绍</h4><p><strong>Barrier</strong> 如同它的名字一样，它就像一个屏障把 <strong>Concurrent Dispatch Queue</strong> 里的多个任务给隔离开了。 <strong>Concurrent Dispatch Queue</strong>里的 <code>Block 任务</code> 是并行执行的，有时候想控制它们执行一部分 <code>Block 任务</code> 后，再执行特定操作，最后执行剩下的其他的 <code>Block 任务</code>。    <code>dispatch_barrier_async</code> 就可以帮我们做到。看具体例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t concurrent = dispatch_queue_create(&quot;io.tao.concurrent&quot;, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">dispatch_async(concurrent, ^&#123;NSLog(@&quot;concurrent 1&quot;);&#125;);</div><div class="line">dispatch_async(concurrent, ^&#123;NSLog(@&quot;concurrent 2&quot;);&#125;);</div><div class="line">dispatch_async(concurrent, ^&#123;NSLog(@&quot;concurrent 3&quot;);&#125;);</div><div class="line">dispatch_barrier_sync(concurrent, ^&#123; sleep(3); NSLog(@&quot;barrier&quot;);&#125;);</div><div class="line">dispatch_async(concurrent, ^&#123;NSLog(@&quot;concurrent 4&quot;);&#125;);</div><div class="line">dispatch_async(concurrent, ^&#123;NSLog(@&quot;concurrent 5&quot;);&#125;);</div><div class="line">dispatch_async(concurrent, ^&#123;NSLog(@&quot;concurrent 6&quot;);&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 上面例子的控制台输出。注意每条 Log 的时间，concurrent 3 到 barrier 间隔了3秒</div><div class="line">2017-02-23 15:17:04.968 OCGCD[22872:29058218] concurrent 1</div><div class="line">2017-02-23 15:17:04.968 OCGCD[22872:29058220] concurrent 2</div><div class="line">2017-02-23 15:17:04.969 OCGCD[22872:29058217] concurrent 3</div><div class="line">2017-02-23 15:17:08.039 OCGCD[22872:29058165] barrier</div><div class="line">2017-02-23 15:17:08.040 OCGCD[22872:29058217] concurrent 4</div><div class="line">2017-02-23 15:17:08.040 OCGCD[22872:29058220] concurrent 5</div><div class="line">2017-02-23 15:17:08.040 OCGCD[22872:29058218] concurrent 6</div></pre></td></tr></table></figure>
+<h1 id="Dispatch-Semaphore"><a href="#Dispatch-Semaphore" class="headerlink" title="Dispatch Semaphore"></a>Dispatch Semaphore</h1><p><strong>Dispatch Semaphore</strong> 是基于计数的信号，在 <code>GCD</code> 中控制并发队列同步的方法之一。 多个队列同时访问修改一个数据时，可能会产生数据不一致的情况，又是程序还会 <strong>Carsh</strong>。这是就可以通过 <strong>Dispatch Semaphore</strong> 去解决。 </p>
+<ul>
+<li><code>dispatch_semaphore_create(1);</code>  会创建一个指定数字的信号量，这里是1。</li>
+<li><code>dispatch_semaphore_wait</code> 函数当信号量 &gt;= 1时会把信号量-1，并返回函数 。否则则会一直卡在此处，或者等到超时。</li>
+<li><code>dispatch_semaphore_signal</code> 发送一个信号，让信号量+1。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t queue = dispatch_get_global_queue(0, 0);</div><div class="line">dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);</div><div class="line">NSMutableArray *marr = [NSMutableArray array];</div><div class="line">for (int i=0; i &lt; 9999; ++i) &#123;</div><div class="line">    dispatch_async(queue, ^&#123;</div><div class="line">        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);</div><div class="line">        [marr addObject:[NSNumber numberWithInt:i]];</div><div class="line">        dispatch_semaphore_signal(semaphore);</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">// 上面例子执行完后，marr 里会包含 9999个 NSNumber 对象。因为通过 Dispatch Semaphore 控制始终只有一个线程在操作 marr。所以没有数据竞争的问题</div></pre></td></tr></table></figure>
+<h1 id="dispatch-suspend-dispatch-resume"><a href="#dispatch-suspend-dispatch-resume" class="headerlink" title="dispatch_suspend / dispatch_resume"></a>dispatch_suspend / dispatch_resume</h1><p>这两个函数可以控制 <strong>Dispatch Queue</strong> 暂停(suspend) 和 恢复(resume)。当 <code>dispatch_suspend(queue)</code> 执行时 <strong>queue</strong> 被暂停。已经加入到 <code>queue</code> 中的任务会继续执行。后面在再加入的任务会暂停，一直等到 <code>dispatch_resume(queue)</code> 被执行。看具体例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;io.tao.app.concurrent&quot;, DISPATCH_QUEUE_CONCURRENT);</div><div class="line"></div><div class="line">dispatch_async(queue, ^&#123; sleep(2); NSLog(@&quot;queue1&quot;); &#125;);</div><div class="line">dispatch_async(queue, ^&#123; NSLog(@&quot;queue2&quot;); &#125;);</div><div class="line"></div><div class="line">NSLog(@&quot;queue supend...&quot;);</div><div class="line">dispatch_suspend(queue);</div><div class="line">dispatch_async(queue, ^&#123; NSLog(@&quot;queue3&quot;); &#125;);</div><div class="line"></div><div class="line">sleep(8);</div><div class="line">NSLog(@&quot;queue resume...&quot;);</div><div class="line">dispatch_resume(queue);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 上面例子的控制台输出。注意每条 Log 的时间。刚好能证明上面的结论</div><div class="line">2017-02-23 16:30:19.829 OCGCD[28759:29155110] queue supend...</div><div class="line">2017-02-23 16:30:19.829 OCGCD[28759:29155170] queue2</div><div class="line">2017-02-23 16:30:21.889 OCGCD[28759:29155168] queue1</div><div class="line">2017-02-23 16:30:27.903 OCGCD[28759:29155110] queue resume...</div><div class="line">2017-02-23 16:30:27.904 OCGCD[28759:29155167] queue3</div></pre></td></tr></table></figure>
+<h1 id="GCD-的内存管理"><a href="#GCD-的内存管理" class="headerlink" title="GCD 的内存管理"></a>GCD 的内存管理</h1><p>在 iOS6 or Mac OS X 10.8 以前 GCD 对象并没有纳入 <code>ARC</code> 管理范围。通过带 <code>dispatch_xxx_create</code> 创建的值都需开发者负责释放。<code>dispatch_retain</code> <code>dispatch_release</code> 。iOS6 or Mac OS X 10.8 之后使用的是  ARC 的话就不需要手动管理内存了。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/27/一个十年的结束, 另一个开始/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Tao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tao's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/27/一个十年的结束, 另一个开始/" itemprop="url">
+                  一个十年的结束, 另一个开始
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-27T23:57:52+08:00">
+                2017-01-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>二零一七年农历新年晚上的的鞭炮吵的让我什么都不想做,  就开始写我人生的第一篇博客.  </p>
+<p>2007那年我11岁, 懵懵懂懂的拥有了人生的第一台电脑, 到现在已经十年时间了.  十年感知上是一个超级漫长的时间.  我竟然浑浑噩噩的一晃而过了.  在那之前对电脑基本一无所知.  拿到它后我总是整天折腾它, 经常把弄坏了自己又不知道怎么办. 然后只能拿去联想售后去修. 以至于后来售后都认识我, 见到我去就会幽怨的讲一句”你又来啦”.  后来售后哥哥就教我怎么重装系统. 再碰到问题不行就重装系统. 也是这个时候在网上看到比尔盖茨, 心里就有了以后做技术的想法. 去买了&lt;网页三剑客&gt;和&lt; Photoshop &gt;在家吃灰. 至于原因, 后来我觉得因为比尔盖茨当时是世界首富(太功利, 不对). 虽然十年过去了, 但人家还是首富. 我还是默默无闻. </p>
+<p>07年一直到我初中辍学的11年辍学技术上基本没有啥进展. 只是跟着最基础入门视频写了最简单的 C. 还有玩了下 Flash, Dreamwear 等一些软件. 玩的很浅. 也没有产生什么作品.  甚至对计算机的基本认知都还不够. 更多的时间花在了耍 QQ 空间, 点亮 QQ 图标去了. 那时候 QQ 空间样子几天一换. 花哨到浏览器打开都要几秒. QQ 图标点了好多好多排. 反正当时没有看到比我亮的多的. 一遍骂着麻花藤一遍玩他的游戏. 这几年学没学好, 玩没玩好, 傻没傻透.  一个人熬夜很多事想不通.</p>
+<p>12年就去了合肥一个新华电脑学院去学软件开发(2年制). 进去就是打字打2,3个月. 然后几个好朋友就开始自学之旅. 没有听一点课. 本来一起学着 java. 都准备选 java 方向. 就我去选了.net 开发. 因为可以拿 C# 画 windows 的界面呀. 这对我来说是最直观的一个产品呀.  对, 我就他妈是个画界面的. 后来网上鼓吹移动开发(不是鼓吹, 是真的有前景, 但是大家当时完全是脱离行业的). 所以我看似有先见之明去一个人去自学 iOS 开发. 装虚拟机开发. 学也很狗屁. 没入行的自学感觉真的很难. (这种情况更好是报班学)</p>
+<p>13年中在新华的课程没学完, 觉得这样下去也是荒废时间. 就再次辍学去上海找工作了.  好不容易进了一家公司. 老板让我去学 cocos2dx 做棋牌游戏. 我只能欣然接受. 当时我的想法就是有份工作就很开心了. 于是就天天熬夜, 经常通宵的边学边做.  没本事没有方法论. 只能做拼命三郎. 天天熬夜, 然后继续那工作下去了.  15年3月去北京开始真正做iOS开发, 16年因为公司原因. 跑到杭州工作.  16年11月公司倒闭, 欠薪跑路. 17年农历新年, 我在杭州写下这篇. </p>
+<p>复盘和总结我接触电脑以来的十年. 有一个很好的开始. 一开始就决定从事 IT 行业. 但是中间的路却没有走好. 有太多原因:</p>
+<ol>
+<li>上学时对软件开发认识不够, 不知道要往哪走. 没有氛围, 一个人很孤独很难. 浪费很多时间</li>
+<li>开始工作后为公司加班太多, 没有太多为自己考虑. 没有构建好自己的知识体系</li>
+<li>基础学科英语,数学太差, 刚工作时没啥感觉, 现在越来越难受</li>
+<li>自己自制力太差看似很累, 很忙. 但其实效率低下.</li>
+<li>没有认真对待选择, 很多失败都是自己选择失误 — 躲避选择, 随波逐流, 太心急太肤浅. </li>
+<li>不是计算专业出身, 对编程基础不够重视.  </li>
+<li>学习不讲方法论. 最近看的&lt;如何高效学习&gt;受益良多</li>
+</ol>
+<p>问题大概就这么多, 有问题就必须要解决, 面对十年的结束和新的开始,  所以年三十在这里立个 flag:</p>
+<ol>
+<li>养成早起习惯, 无论节假日上不上班早上7点醒.</li>
+<li>每周必须有一天完全离开电脑. 放松</li>
+<li>看完买的一套英语语法书. 阅读英文文档要变成日常</li>
+<li>看完&lt; TCP/IP 详解 &gt;的三本黑书 和 &lt; 算法4 &gt; 外加一本编译原理相关的书</li>
+<li>至少撸出2个个人产品</li>
+<li>每月至少码一篇原创的blog</li>
+</ol>
+<p>最后 @all 新年快乐,  家人健康, 幸福开心.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+  </section>
+
+  
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Liu Tao" />
+          <p class="site-author-name" itemprop="name">Liu Tao</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liu Tao</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

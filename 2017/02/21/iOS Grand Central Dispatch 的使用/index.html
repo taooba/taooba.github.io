@@ -1,4 +1,332 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> iOS Grand Central Dispatch 的使用 · tao's blog</title><meta name="description" content="iOS Grand Central Dispatch 的使用 - Liu Tao"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="tao's blog"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/573555508" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/taooba" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">iOS Grand Central Dispatch 的使用</h1><div class="post-info">Feb 21, 2017</div><div class="post-content"><h1 id="什么是-GCD"><a href="#什么是-GCD" class="headerlink" title="什么是 GCD ?"></a>什么是 GCD ?</h1><p><code>GCD</code> 全称为 <code>Grand Central Dispatch</code> ， 是一个异步执行任务的技术之一。 一般将应用程序中线程管理用的代码再系统级中实现。 开发者只需要定义想执行的任务并追加到适当的 <code>Dispatch Queue</code> 中， <code>GCD</code> 就能生成必要的线程并计划执行任务。 由于线程管理是作为系统的一部分来实现的， 因此可统一管理，也可执行任务，这样就比以前的线程更有效率。</p>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="tao's blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="什么是 GCD ?GCD 全称为 Grand Central Dispatch ， 是一个异步执行任务的技术之一。 一般将应用程序中线程管理用的代码再系统级中实现。 开发者只需要定义想执行的任务并追加到适当的 Dispatch Queue 中， GCD 就能生成必要的线程并计划执行任务。 由于线程管理是作为系统的一部分来实现的， 因此可统一管理，也可执行任务，这样就比以前的线程更有效率。
+相对于直">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Grand Central Dispatch 的使用">
+<meta property="og:url" content="http://yoursite.com/2017/02/21/iOS Grand Central Dispatch 的使用/index.html">
+<meta property="og:site_name" content="tao's blog">
+<meta property="og:description" content="什么是 GCD ?GCD 全称为 Grand Central Dispatch ， 是一个异步执行任务的技术之一。 一般将应用程序中线程管理用的代码再系统级中实现。 开发者只需要定义想执行的任务并追加到适当的 Dispatch Queue 中， GCD 就能生成必要的线程并计划执行任务。 由于线程管理是作为系统的一部分来实现的， 因此可统一管理，也可执行任务，这样就比以前的线程更有效率。
+相对于直">
+<meta property="og:updated_time" content="2017-03-26T15:50:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS Grand Central Dispatch 的使用">
+<meta name="twitter:description" content="什么是 GCD ?GCD 全称为 Grand Central Dispatch ， 是一个异步执行任务的技术之一。 一般将应用程序中线程管理用的代码再系统级中实现。 开发者只需要定义想执行的任务并追加到适当的 Dispatch Queue 中， GCD 就能生成必要的线程并计划执行任务。 由于线程管理是作为系统的一部分来实现的， 因此可统一管理，也可执行任务，这样就比以前的线程更有效率。
+相对于直">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/02/21/iOS Grand Central Dispatch 的使用/"/>
+
+
+
+
+
+  <title> iOS Grand Central Dispatch 的使用 | tao's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tao's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/21/iOS Grand Central Dispatch 的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Tao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tao's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS Grand Central Dispatch 的使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-21T20:15:26+08:00">
+                2017-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是-GCD"><a href="#什么是-GCD" class="headerlink" title="什么是 GCD ?"></a>什么是 GCD ?</h1><p><code>GCD</code> 全称为 <code>Grand Central Dispatch</code> ， 是一个异步执行任务的技术之一。 一般将应用程序中线程管理用的代码再系统级中实现。 开发者只需要定义想执行的任务并追加到适当的 <code>Dispatch Queue</code> 中， <code>GCD</code> 就能生成必要的线程并计划执行任务。 由于线程管理是作为系统的一部分来实现的， 因此可统一管理，也可执行任务，这样就比以前的线程更有效率。</p>
 <p>相对于直接去写多线程的代码。通过 <code>GCD</code> 去使用多线程技术不仅非常简单，并且避免一些多线程操作中可能出现的问题。开发者要做的只是定义想执行的任务并追加到适当的 <code>Dispatch Queue</code> 中。</p>
 <h1 id="Dispatch-Queue"><a href="#Dispatch-Queue" class="headerlink" title="Dispatch Queue"></a>Dispatch Queue</h1><h4 id="Dispatch-Queue-介绍"><a href="#Dispatch-Queue-介绍" class="headerlink" title="Dispatch Queue 介绍"></a>Dispatch Queue 介绍</h4><p><code>Dispatch Queue</code> 是执行等待任务的队列。在使用 <code>GCD</code> 执行任务时，添加任务到对应的 <code>Dispatch Queue</code> 中。由 <code>Dispatch Queue</code> 控制怎么在线程上执行任务。<code>Dispatch_Queue</code> 按照任务追加的顺序执行(FIFO)。  <code>Dispatch Queue</code> 分类两种类型: </p>
 <ul>
@@ -62,12 +390,343 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t queue = dispatch_queue_create(&quot;io.tao.app.concurrent&quot;, DISPATCH_QUEUE_CONCURRENT);</div><div class="line"></div><div class="line">dispatch_async(queue, ^&#123; sleep(2); NSLog(@&quot;queue1&quot;); &#125;);</div><div class="line">dispatch_async(queue, ^&#123; NSLog(@&quot;queue2&quot;); &#125;);</div><div class="line"></div><div class="line">NSLog(@&quot;queue supend...&quot;);</div><div class="line">dispatch_suspend(queue);</div><div class="line">dispatch_async(queue, ^&#123; NSLog(@&quot;queue3&quot;); &#125;);</div><div class="line"></div><div class="line">sleep(8);</div><div class="line">NSLog(@&quot;queue resume...&quot;);</div><div class="line">dispatch_resume(queue);</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 上面例子的控制台输出。注意每条 Log 的时间。刚好能证明上面的结论</div><div class="line">2017-02-23 16:30:19.829 OCGCD[28759:29155110] queue supend...</div><div class="line">2017-02-23 16:30:19.829 OCGCD[28759:29155170] queue2</div><div class="line">2017-02-23 16:30:21.889 OCGCD[28759:29155168] queue1</div><div class="line">2017-02-23 16:30:27.903 OCGCD[28759:29155110] queue resume...</div><div class="line">2017-02-23 16:30:27.904 OCGCD[28759:29155167] queue3</div></pre></td></tr></table></figure>
 <h1 id="GCD-的内存管理"><a href="#GCD-的内存管理" class="headerlink" title="GCD 的内存管理"></a>GCD 的内存管理</h1><p>在 iOS6 or Mac OS X 10.8 以前 GCD 对象并没有纳入 <code>ARC</code> 管理范围。通过带 <code>dispatch_xxx_create</code> 创建的值都需开发者负责释放。<code>dispatch_retain</code> <code>dispatch_release</code> 。iOS6 or Mac OS X 10.8 之后使用的是  ARC 的话就不需要手动管理内存了。</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2017/03/26/Objective-C Block Part1 - 介绍&amp;使用/" class="prev">PREV</a><a href="/2017/01/27/一个十年的结束, 另一个开始/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'tao4blog';
-var disqus_identifier = '2017/02/21/iOS Grand Central Dispatch 的使用/';
-var disqus_title = 'iOS Grand Central Dispatch 的使用';
-var disqus_url = 'http://yoursite.com/2017/02/21/iOS Grand Central Dispatch 的使用/';
-(function() {
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//tao4blog.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Liu Tao</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/27/一个十年的结束, 另一个开始/" rel="next" title="一个十年的结束, 另一个开始">
+                <i class="fa fa-chevron-left"></i> 一个十年的结束, 另一个开始
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/26/Objective-C Block Part1 - 介绍&使用/" rel="prev" title="Objective-C Block Part1 - 介绍&使用">
+                Objective-C Block Part1 - 介绍&使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Liu Tao" />
+          <p class="site-author-name" itemprop="name">Liu Tao</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是-GCD"><span class="nav-number">1.</span> <span class="nav-text">什么是 GCD ?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dispatch-Queue"><span class="nav-number">2.</span> <span class="nav-text">Dispatch Queue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dispatch-Queue-介绍"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">Dispatch Queue 介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-Dispatch-Queue"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">创建 Dispatch Queue</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取系统提供的-Dispatch-Queue"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">获取系统提供的 Dispatch Queue</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dispatch-async-amp-dispatch-sync"><span class="nav-number">3.</span> <span class="nav-text">dispatch_async & dispatch_sync</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dispatch-async-amp-dispatch-sync-介绍"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">dispatch_async & dispatch_sync 介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dispatch-async-amp-dispatch-sync-和线程"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">dispatch_async & dispatch_sync 和线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dispatch-sync-和-死锁"><span class="nav-number">3.0.0.3.</span> <span class="nav-text">dispatch_sync 和 死锁</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dispatch-after"><span class="nav-number">4.</span> <span class="nav-text">dispatch_after</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dispatch-after-介绍"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">dispatch_after 介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dispatch-time-介绍"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">dispatch_time 介绍</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dispatch-apply"><span class="nav-number">5.</span> <span class="nav-text">dispatch_apply</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dispatch-apply-介绍"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">dispatch_apply 介绍</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dispatch-set-target-queue"><span class="nav-number">6.</span> <span class="nav-text">dispatch_set_target_queue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用其设置队列的优先级"><span class="nav-number">6.0.0.1.</span> <span class="nav-text">用其设置队列的优先级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置多个-Serial-Dispatch-Queue-的执行顺序"><span class="nav-number">6.0.0.2.</span> <span class="nav-text">设置多个 Serial Dispatch Queue 的执行顺序</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dispatch-group"><span class="nav-number">7.</span> <span class="nav-text">dispatch_group</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dispatch-group-介绍"><span class="nav-number">7.0.0.1.</span> <span class="nav-text">dispatch_group 介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dispatch-group-wait-的使用"><span class="nav-number">7.0.0.2.</span> <span class="nav-text">dispatch_group_wait 的使用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dispatch-barrier-async"><span class="nav-number">8.</span> <span class="nav-text">dispatch_barrier_async</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dispatch-barrier-async-介绍"><span class="nav-number">8.0.0.1.</span> <span class="nav-text">dispatch_barrier_async 介绍</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dispatch-Semaphore"><span class="nav-number">9.</span> <span class="nav-text">Dispatch Semaphore</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dispatch-suspend-dispatch-resume"><span class="nav-number">10.</span> <span class="nav-text">dispatch_suspend / dispatch_resume</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GCD-的内存管理"><span class="nav-number">11.</span> <span class="nav-text">GCD 的内存管理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liu Tao</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
