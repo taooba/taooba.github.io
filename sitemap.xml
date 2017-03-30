@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/03/30/Objective-C%20Block%20Part3%20-%20Weak-Strong%20Dance/</loc>
+    
+    <lastmod>2017-03-30T05:28:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/03/30/Objective-C%20Block%20Part2%20-%20%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</loc>
     
     <lastmod>2017-03-30T03:33:57.000Z</lastmod>
