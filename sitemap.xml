@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/02/21/iOS%20Grand%20Central%20Dispatch%20%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    
+    <lastmod>2017-03-31T03:24:15.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/03/30/Objective-C%20Block%20Part3%20-%20Weak-Strong%20Dance/</loc>
     
     <lastmod>2017-03-30T05:31:08.000Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://yoursite.com/2017/03/26/Objective-C%20Block%20Part1%20-%20%E4%BB%8B%E7%BB%8D&%E4%BD%BF%E7%94%A8/</loc>
     
     <lastmod>2017-03-30T03:20:13.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/02/21/iOS%20Grand%20Central%20Dispatch%20%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
-    
-    <lastmod>2017-03-26T15:50:20.000Z</lastmod>
     
   </url>
   
