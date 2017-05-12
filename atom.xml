@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-30T10:18:48.000Z</updated>
+  <updated>2017-05-12T12:05:48.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>更安全的 HTTP Part1 - HTTP的安全隐患</title>
+    <link href="http://yoursite.com/2017/05/11/%E6%9B%B4%E5%AE%89%E5%85%A8%E7%9A%84%20HTTP%20Part1%20-%20HTTP%E7%9A%84%E5%AE%89%E5%85%A8%E9%9A%90%E6%82%A3/"/>
+    <id>http://yoursite.com/2017/05/11/更安全的 HTTP Part1 - HTTP的安全隐患/</id>
+    <published>2017-05-11T08:17:24.000Z</published>
+    <updated>2017-05-12T12:05:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>现今很多的 <strong>WEB 应用</strong> 依赖于 <strong>HTTP 协议</strong>，<strong>HTTP</strong> 作为服务端和客户端沟通的桥梁，帮这个世界构建了数不清的精彩 <strong>WEB 应用</strong>。 但是 <strong>HTTP 协议</strong> 是明文传输的，敏感数据例如密码，金额等等，如果不加特殊处理会有很大的安全隐患。下面就来谈谈使用 <strong>HTTP 协议</strong> 可能面临的安全隐患。</p>
+<h1 id="明文传输-传输内容被监听"><a href="#明文传输-传输内容被监听" class="headerlink" title="明文传输 - 传输内容被监听"></a>明文传输 - 传输内容被监听</h1><p>默认的通过  <strong>HTTP 协议</strong> 传输的内容都是明文传输，不经过任何加密的。如果 <strong>HTTP 报文</strong> 中含有密码，直接就可以通过抓包工具来看到密码内容。更严重的是网络传输中要经历很多个节点，所有经过的节点都会知道访问的网站URL、用户名和密码，等同于整个账号被泄漏。</p>
+<h4 id="对密码进行加密"><a href="#对密码进行加密" class="headerlink" title="对密码进行加密"></a>对密码进行加密</h4><p>对密码进行 <code>对称</code> 或者 <code>非对称</code> 加密处理其实也解决不了根本问题。对密码加密后的密文在网络上传输仍然会被截获，虽然不能通过密文反推出原始密码，可是截获方可以直接发送加密后的密文给服务端效果是相同的。服务端并不能区分是谁发送，只要接收到的密文解密后和数据库里存储的密码相同就被认定通过了。这种被称为 <code>重放攻击</code> 。</p>
+<h4 id="通过加入随机数来避免重放攻击"><a href="#通过加入随机数来避免重放攻击" class="headerlink" title="通过加入随机数来避免重放攻击"></a>通过加入随机数来避免重放攻击</h4><p>通过一个一定时间段有效(比如1分钟) 的随机数 + 密码来组成一个字符串并加密，所得出的密文来传输给服务端可以一定程度来避免 <code>重放攻击</code> 的问题，但是还是有瑕疵。因为服务器必须知道随机数的数值，所以随机数是通过服务器生成并传给客户端的，所以会多出传送随机数的步骤。并且在随机数有效的时间里(比如1分钟)，不怀好意的人还是能够使用 <code>重放攻击</code>。</p>
+<h4 id="加密整个-HTTP-来避免被监听"><a href="#加密整个-HTTP-来避免被监听" class="headerlink" title="加密整个 HTTP 来避免被监听"></a>加密整个 HTTP 来避免被监听</h4><p>除了上面的方法，还可以通过加密整个 <strong>HTTP 报文</strong> 来防止传输内容被监听。考虑客户端的密钥很容易被窃取，所以这里使用非对称加密算法 <code>RSA</code> 更合适。但是对整个 <strong>HTTP 报文</strong> 加密会有很大的效率问题。<code>RSA</code> 非对称算法的加密速度相对对称算法非常慢，并且解密速度相对 <code>RSA</code> 的加密速度来讲也是非常慢。所以对整个报文都进行 <code>RSA</code> 加密，数据量大了后会给服务端带来很大压力。</p>
+<h1 id="中间人攻击-报文被篡改"><a href="#中间人攻击-报文被篡改" class="headerlink" title="中间人攻击 - 报文被篡改"></a>中间人攻击 - 报文被篡改</h1><p><strong>HTTP 协议</strong> 默认是不能验证报文的完整性的，当在两个端传递数据时，中间经过的节点可以修改报文的内容，当传递到另一端的时候报文内容已经遭到篡改。例如，客户端请求转一笔钱给 A 用户，但是在传递的过程中被其中的一个节点修改成 B 用户，这就有很大的安全隐患。还有一种最常见的 <strong>运营商劫持</strong>，我们经常在网上的右下角会看到一个方形的广告，这其实在很多时候都不是网页提供方做的。而是运营商为了利益修改了返回报文，在其中加入的广告。</p>
+<h1 id="不能验证通信方的身份"><a href="#不能验证通信方的身份" class="headerlink" title="不能验证通信方的身份"></a>不能验证通信方的身份</h1><p><strong>HTTP 协议</strong> 并不能验证通信双方的真实身份，比如客户端并不能验证服务端是否是被伪造，还是会一直和服务端去发送请求。这就有可能被服务端窃取到一些敏感数据。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;现今很多的 &lt;strong&gt;WEB 应用&lt;/strong&gt; 依赖于 &lt;strong&gt;HTTP 协议&lt;/strong&gt;，&lt;strong&gt;HTTP&lt;/strong&gt; 作为服务端和客户端沟通的桥梁，帮这个世界构建了数不清的精彩 &lt;strong&gt;WEB 应用&lt;/strong&gt;。 但
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Sketch 初体验</title>
