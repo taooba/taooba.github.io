@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-12T12:05:48.000Z</updated>
+  <updated>2017-08-23T01:41:57.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,78 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript - 前世今生</title>
+    <link href="http://yoursite.com/2017/07/03/JavaScript%20-%20%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/"/>
+    <id>http://yoursite.com/2017/07/03/JavaScript - 前世今生/</id>
+    <published>2017-07-03T12:27:55.000Z</published>
+    <updated>2017-08-23T01:41:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="JavaScript-的历史-amp-版本"><a href="#JavaScript-的历史-amp-版本" class="headerlink" title="JavaScript 的历史&amp;版本"></a>JavaScript 的历史&amp;版本</h1><p>📆 1994年12月 - 网景公司(Netscape) 发布了Navigator浏览器1.0版，市场份额一举超过了90%。</p>
+<blockquote>
+<p><strong>注:</strong>  后来 Netscape 公司很快发现， Navigator 浏览器需要一种可以嵌入网页的脚本语言，用来控制浏览器的行为。比如说网页上有一个表单需要用户自己填写名称，那么浏览器无法知道用户是否真的填写了用户名称，而是需要将信息发送到服务器端才能判断，若用户没有填写，只能等待服务器返回错误信息，这十分浪费服务器资源与用户的时间。</p>
+</blockquote>
+<p>📆 1995年05月 - Netscap 公司的 Brendan Eich 只用了10天就设计完成了这种语言的第一版。叫做 Mocha。</p>
+<p>📆 1995年09月 - Mocha 改名为 LiveScript。</p>
+<p>📆 1995年12月 - Netscap 公司为了借助 Java 语言的声势， 将 LiveScript 改名为 JavaScript 。其实关系不大。</p>
+<p>📆 1996年03月 - Navigator 2.0 浏览器正式内置了 JavaScript 语言。</p>
+<p>📆 1996年08月 - 微软模仿 JavaScript 语言开发了一种相近的语言(JScript) 内置在 IE 3.0 中。与 JavaScript 竞争。</p>
+<p>📆 1996年11月 - Netscape 公司将 JavasScript 提交给国际组织 ECMA 进行标准化，以此来应对微软的挑战。ECMA 的39号技术委员会（Technical Committee 39）负责制定和审核这个标准，成员由业内的大公司派出的工程师组成。</p>
+<p>📆 1997年07月 - ECMA 组织发布262号标准文件（ECMA-262）的第一版，规定浏览器脚本语言的标准，并将这种语言称为ECMAScript。这个版本就是ECMAScript 1.0版。</p>
+<blockquote>
+<p><strong>注:  JavaScript 和 ECMAScript 的关系 ?</strong></p>
+<p>发布了 ECMAScript 后由于 JavaScript 名字的历史原因和市场原因，现实中我们只用 ECMAScript 称呼标准，平时都还是使用 JavaScript 来称呼这个语言。 所以 ECMAScript 指的是标准，而 JavaScript 指的是实现</p>
+<ul>
+<li><em>标准（Standard）</em>： 用于定义与其他事物区别的一套规则</li>
+<li><em>实现（Implementation）</em>： 某个标准的具体实施/真实实践</li>
+</ul>
+</blockquote>
+<p>📆 1998年06月 - ECMAScript 2.0 版发布。</p>
+<p>📆 1999年12月 - ECMAScript 3.0 版发布，成为 JavaScript 的通行标准得到了广泛支持。</p>
+<p>📆 2007年10月 - ECMAScript 4.0 版草案发布，对 3.0 版做了大幅升级，但是 4.0 版的目标过于激进，各方对于是否通过这个标准，发生了严重分歧。</p>
+<p>📆 2008年07月 - 由于 TC39 委员会内部各方对于 4.0 版本的内容分歧太大，为了避免陷入僵局，委员进行了一场会晤，会议达成以下内容:</p>
+<ul>
+<li>废除 4.0 版本，将其中涉及现有功能改善的一小部分发布为 ECMAScript 3.1（后来改名为 ECMAScript 5.0）</li>
+<li>其他的一些激进的设想放入以后的版本，项目代号为 Harmony（和谐）</li>
+</ul>
+<p>📆 2009年12月 - ECMAScript 5.0 版正式发布。</p>
+<blockquote>
+<p><strong>注：</strong> 后来 Harmony 项目被一分为二：</p>
+<ul>
+<li>一些较为可行的设想定名为 JavaScript.next 继续开发，后来演变成 ECMAScript 6</li>
+<li>一些不是很成熟的设想则被视为 JavaScript.next.next， 在更远的将来再考虑推出。</li>
+</ul>
+</blockquote>
+<p>📆 2011年06月 - ECMAscript 5.1 版发布，并且成为ISO国际标准（ISO/IEC 16262:2011）。到了2012年底，所有主要浏览器都支持ECMAScript 5.1 版的全部功能。</p>
+<p>📆 2013年03月 - ECMAScript 6 草案冻结，不再添加新功能。新的功能设想将被放到ECMAScript 7。</p>
+<p>📆 2013年12月 - ECMAScript 6 草案发布。然后是12个月的讨论期，听取各方反馈。</p>
+<p>📆 2015年06月 - ECMAScript 6 正式发布，并且更名为”ECMAScript 2015”。</p>
+<blockquote>
+<p><strong>注:  ES6  和  ECMAScript 2015 是什么关系 ?</strong></p>
+<p>ECMAScript  TC39 委员会决定将定义新标准的制度改为一年一次，这意味着每个新特性一旦被批准就可以添加，而不像以往一样，规范只有在整个草案完成，所有特性都没问题后才能被定稿。因此: </p>
+<p>ECMAScript 6 = ES6 = ECMAScript 2015 = ES2015 。</p>
+<p>ECMAScript 7 = ES7 = ECMAScript 2016 = ES2016 。</p>
+</blockquote>
+<h3 id="Mozilla-的-JavaScript-版本号"><a href="#Mozilla-的-JavaScript-版本号" class="headerlink" title="Mozilla 的 JavaScript 版本号"></a>Mozilla 的 JavaScript 版本号</h3><p>有时会看到t特殊的 JavaScript 1.5 或 JavaScript 1.8 的版本号， 这些是 Netscape公司（以及继承它的Mozilla基金会）在内部依然使用自己的版本号。这导致了JavaScript有自己不同于ECMAScript的版本号。Mozilla的版本号：</p>
+<ul>
+<li>JavaScript 1.1 版对应 ECMAScript 1.0 ，但是直到 JavaScript 1.4版才完全兼容ECMAScript 1.0</li>
+<li>JavaScript 1.5 版完全兼容 ECMAScript 3.0。</li>
+<li>JavaScript 1.8 版完全兼容 ECMAScript 5。</li>
+</ul>
+<h1 id="致敬-参考内容"><a href="#致敬-参考内容" class="headerlink" title="致敬 - 参考内容"></a>致敬 - 参考内容</h1><p><a href="http://JavaScript.ruanyifeng.com/introduction/history.html" target="_blank" rel="external">JavaScript语言的历史 - 阮一峰</a></p>
+<p><a href="https://huangxuan.me/2015/09/22/js-version/" target="_blank" rel="external">ES5, ES6, ES2016, ES.Next: JavaScript 的版本是怎么回事？「译」</a></p>
+<p><a href="http://www.cnblogs.com/ziyunfei/archive/2012/09/24/2699065.html" target="_blank" rel="external">译: ECMAScript:ES.next和ES6以及ES Harmony之间的区别 - 紫云飞</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;JavaScript-的历史-amp-版本&quot;&gt;&lt;a href=&quot;#JavaScript-的历史-amp-版本&quot; class=&quot;headerlink&quot; title=&quot;JavaScript 的历史&amp;amp;版本&quot;&gt;&lt;/a&gt;JavaScript 的历史&amp;amp;版本&lt;/
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>更安全的 HTTP Part1 - HTTP的安全隐患</title>

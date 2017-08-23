@@ -5,7 +5,7 @@
 <h4 id="加密整个-HTTP-来避免被监听"><a href="#加密整个-HTTP-来避免被监听" class="headerlink" title="加密整个 HTTP 来避免被监听"></a>加密整个 HTTP 来避免被监听</h4><p>除了上面的方法，还可以通过加密整个 <strong>HTTP 报文</strong> 来防止传输内容被监听。考虑客户端的密钥很容易被窃取，所以这里使用非对称加密算法 <code>RSA</code> 更合适。但是对整个 <strong>HTTP 报文</strong> 加密会有很大的效率问题。<code>RSA</code> 非对称算法的加密速度相对对称算法非常慢，并且解密速度相对 <code>RSA</code> 的加密速度来讲也是非常慢。所以对整个报文都进行 <code>RSA</code> 加密，数据量大了后会给服务端带来很大压力。</p>
 <h1 id="中间人攻击-报文被篡改"><a href="#中间人攻击-报文被篡改" class="headerlink" title="中间人攻击 - 报文被篡改"></a>中间人攻击 - 报文被篡改</h1><p><strong>HTTP 协议</strong> 默认是不能验证报文的完整性的，当在两个端传递数据时，中间经过的节点可以修改报文的内容，当传递到另一端的时候报文内容已经遭到篡改。例如，客户端请求转一笔钱给 A 用户，但是在传递的过程中被其中的一个节点修改成 B 用户，这就有很大的安全隐患。还有一种最常见的 <strong>运营商劫持</strong>，我们经常在网上的右下角会看到一个方形的广告，这其实在很多时候都不是网页提供方做的。而是运营商为了利益修改了返回报文，在其中加入的广告。</p>
 <h1 id="不能验证通信方的身份"><a href="#不能验证通信方的身份" class="headerlink" title="不能验证通信方的身份"></a>不能验证通信方的身份</h1><p><strong>HTTP 协议</strong> 并不能验证通信双方的真实身份，比如客户端并不能验证服务端是否是被伪造，还是会一直和服务端去发送请求。这就有可能被服务端窃取到一些敏感数据。</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2017/04/30/Sketch 初体验/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'tao4blog';
+</div></article></div></main><footer><div class="paginator"><a href="/2017/07/03/JavaScript - 前世今生/" class="prev">PREV</a><a href="/2017/04/30/Sketch 初体验/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'tao4blog';
 var disqus_identifier = '2017/05/11/更安全的 HTTP Part1 - HTTP的安全隐患/';
 var disqus_title = '更安全的 HTTP Part1 - HTTP的安全隐患';
 var disqus_url = 'http://yoursite.com/2017/05/11/更安全的 HTTP Part1 - HTTP的安全隐患/';
