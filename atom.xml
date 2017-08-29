@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-22T16:00:00.000Z</updated>
+  <updated>2017-08-29T15:32:29.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript - 变量与类型.md</title>
+    <link href="http://yoursite.com/2017/08/26/JavaScript%20-%20%E5%8F%98%E9%87%8F%E4%B8%8E%E7%B1%BB%E5%9E%8B/"/>
+    <id>http://yoursite.com/2017/08/26/JavaScript - 变量与类型/</id>
+    <published>2017-08-26T11:42:58.000Z</published>
+    <updated>2017-08-29T15:32:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="定义变量-常量-let、const、var"><a href="#定义变量-常量-let、const、var" class="headerlink" title="定义变量/常量 let、const、var"></a>定义变量/常量 let、const、var</h1><p>JavaScript 中定义一个变量/常量可以使用的关键字有 <code>let</code> <code>const</code> <code>var</code> ，下面对比各个关键字的区别:</p>
+<h3 id="变量常量"><a href="#变量常量" class="headerlink" title="变量常量"></a>变量常量</h3><p><code>var</code> 和 <code>let</code>  关键字定义的是 <strong>变量</strong>，赋值后可以再次修改它的值。 <code>const</code> 关键字定义的 <strong>常量</strong>，声明时必须初始化，并且赋值后就不能再修改。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> var_box = <span class="number">100</span>;</div><div class="line"><span class="keyword">let</span> let_box = <span class="number">200</span>;</div><div class="line"><span class="keyword">const</span> const_box1 = <span class="number">300</span>;</div><div class="line">cosnt const_box2;	<span class="comment">// 报错: Missing initializer in const declaration</span></div><div class="line"></div><div class="line">var_box = <span class="number">101</span>;</div><div class="line">let_box = <span class="number">201</span>;</div><div class="line">const_box = <span class="number">301</span>;  	<span class="comment">// 操作: Assignment to constant variable.</span></div></pre></td></tr></table></figure>
+<h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><p><code>var</code> 变量有变量提升的特性，而 <code>let</code> <code>const</code> 变量/常量 则没有。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(var_box);		<span class="comment">// 输出 undefined</span></div><div class="line"><span class="built_in">console</span>.log(let_box); 		<span class="comment">// 报错: let_box is not defined</span></div><div class="line"><span class="built_in">console</span>.log(const_box); 	<span class="comment">// 报错: const_box is not defined</span></div><div class="line">  </div><div class="line"><span class="keyword">var</span> var_box = <span class="number">100</span>;</div><div class="line"><span class="keyword">let</span> let_box = <span class="number">200</span>;</div><div class="line"><span class="keyword">const</span> const_box = <span class="number">300</span>;</div></pre></td></tr></table></figure>
+<p>上面的例子，在  <code>var_box</code> 变量的声明之前使用它不会报错，得到的值是 <code>undefined</code> ，而以同样的方式访问<code>let_box</code>  <code>const_box</code> 则会报错。这是因为解析器对 <code>var</code> 定义的变量进行了变量提升，上面的代码可以等同于下面代码: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> var_box;</div><div class="line"><span class="built_in">console</span>.log(var_box);		<span class="comment">// 输出 undefined</span></div><div class="line"><span class="built_in">console</span>.log(let_box); 		<span class="comment">// 报错: let_box is not defined</span></div><div class="line"><span class="built_in">console</span>.log(const_box); 	<span class="comment">// 报错: const_box is not defined</span></div><div class="line">  </div><div class="line">var_box = <span class="number">100</span>;</div><div class="line"><span class="keyword">let</span> let_box = <span class="number">200</span>;</div><div class="line"><span class="keyword">const</span> const_box = <span class="number">300</span>;</div></pre></td></tr></table></figure>
+<h3 id="变量-常量-的作用域"><a href="#变量-常量-的作用域" class="headerlink" title="变量/常量 的作用域"></a>变量/常量 的作用域</h3><p><code>var</code> 定义的变量的有效作用域为 <strong>全局作用域</strong> 和 <strong>函数作用域</strong>，而 <code>let</code> <code>const</code> 定义的变量/常量 的有效作用域除了 <strong>全局作用域</strong> 和 <strong>函数作用域</strong> 还包括更小的 <strong>块级作用域</strong>。小例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test_func</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (<span class="literal">true</span>) &#123;</div><div class="line">    <span class="keyword">var</span> var_box = <span class="number">100</span>;</div><div class="line">    <span class="keyword">let</span> let_box = <span class="number">200</span>;</div><div class="line">    <span class="keyword">const</span> const_box = <span class="number">300</span>;</div><div class="line">    </div><div class="line">    <span class="comment">// 三个变量/常量 全部都能访问到，输出 100, 200, 300</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;var_box&#125;</span>, <span class="subst">$&#123;let_box&#125;</span>, <span class="subst">$&#123;const_box&#125;</span>`</span>); </div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="built_in">console</span>.log(var_box);		<span class="comment">// 输出 100</span></div><div class="line">  <span class="built_in">console</span>.log(let_box); 	<span class="comment">// 报错: let_box is not defined</span></div><div class="line">  <span class="built_in">console</span>.log(const_box);   <span class="comment">// 报错: const_box is not defined</span></div><div class="line">&#125;</div><div class="line">test_func();</div></pre></td></tr></table></figure>
+<p>因为 <code>let</code> <code>cosnt</code>  定义的变量/常量的最小有效作用域为 <strong>块级作用域</strong> 所以在 <strong>if - 块级作用域</strong> 定义的变量/常量超出了这个 <strong>块级作用域</strong> 就访问不到了。而 <code>var</code> 定义的变量最小作用域为 <strong>函数作用域</strong> ，即使是在 <strong>if - 块级作用域</strong> 中定义的 <code>var</code> 变量，但 <strong>块级作用域</strong> 对它没有效果，所以在整个 <strong>test_func - 函数作用域</strong> 中都有效。超出 <strong>test_func - 函数作用域</strong> 则访问不到。</p>
+<h3 id="全局变量-amp-局部变量"><a href="#全局变量-amp-局部变量" class="headerlink" title="全局变量 &amp; 局部变量"></a>全局变量 &amp; 局部变量</h3><p><strong>全局变量</strong> 的有效作用域是 <strong>全局作用域</strong>，定义在所有的函数的外面，整个 Javascript 程序的生命周中都可以使用。 <strong>局部变量</strong> 的有效作用域为 <strong>函数作用域</strong> 或 <strong>块级作用域</strong>，超出了对应作用域就访问不到了。但是 JavaScript 中还有一种特殊的方式定义 <strong>全局变量</strong>，就是在 <strong>函数作用域/块级作用域</strong> 直接使用变量，不写 <code>var</code> 或 <code>let</code> 关键字，这样的变量就是 <strong>全局变量</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test_func</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  var_box = <span class="number">100</span>;</div><div class="line">  let_box = <span class="number">200</span>;</div><div class="line">&#125;</div><div class="line">test_func();</div><div class="line"><span class="built_in">console</span>.log(var_box);  <span class="comment">// 输出 100</span></div><div class="line"><span class="built_in">console</span>.log(let_box);  <span class="comment">// 输出 200</span></div></pre></td></tr></table></figure>
+<p>上面例子中 <code>var_box</code> <code>let_box</code> 因为是 <strong>全局作用域</strong>，所以超出 <strong>test_fucn - 函数作用域</strong> 仍然可以访问。不过这种方式在 <code>use strict</code> 严格模式下会报错 <code>is not defined</code>。实际使用时并不推荐这种方式，也需要谨防忘了写 <code>var</code> <code>let</code> 让变量变成了 <strong>全局变量</strong>， 导致程序实现和自己的想法有出入。</p>
+<h3 id="ECMAScript-支持版本"><a href="#ECMAScript-支持版本" class="headerlink" title="ECMAScript 支持版本"></a>ECMAScript 支持版本</h3><p><code>let</code> 关键字是 ES6 提供的变量声明方法，它和 <code>var</code> 关键字的作用非常相似，但 <code>let</code> 关键字支持更符合我们思维习惯的 <strong>块级作用域</strong>，所以在不需要兼容 ES6 以前的环境时(例: Node) 推荐使用 <code>let</code> 关键字去替代 <code>var</code> 关键字。</p>
+<h1 id="JavaScript-变量的松散特性"><a href="#JavaScript-变量的松散特性" class="headerlink" title="JavaScript 变量的松散特性"></a>JavaScript 变量的松散特性</h1><p>JavaScript 的变量和其他语言相比有一个很大的区别就是 JavaScript 变量的松散特性，JavaScript 的变量在定义时候不需要指定变量的类型，变量的值和数据类型可以在变量的生命周期内随意更改。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> box = <span class="number">100</span>;</div><div class="line"><span class="built_in">console</span>.log(box);   <span class="comment">// 输出: 100</span></div><div class="line">box = <span class="string">"吃了吗?"</span>;</div><div class="line"><span class="built_in">console</span>.log(box);   <span class="comment">// 输出: 吃了吗?</span></div><div class="line">box = &#123;<span class="attr">name</span>: <span class="string">'奥观海'</span>, <span class="attr">nation</span>:<span class="string">'肯尼亚'</span>&#125;;</div><div class="line"><span class="built_in">console</span>.log(box);   <span class="comment">// 输出: &#123; name: '奥观海', nation: '肯尼亚' &#125;</span></div></pre></td></tr></table></figure>
+<p>上面的例子定义了一个 <code>box</code> 变量，先后赋值了 <code>Number</code>、<code>String</code>、<code>Object</code> 类型，都可以正常使用。</p>
+<h1 id="基本类型和引用类型"><a href="#基本类型和引用类型" class="headerlink" title="基本类型和引用类型"></a>基本类型和引用类型</h1><p>JavaScript 中的类型大层次上分为两类: <strong>基本类型</strong> 和 <strong>引用类型</strong>。<strong>基本类型</strong> 包含有的数据类型有: <code>Undefined</code> <code>Null</code> <code>Boolean</code> <code>Number</code> <code>String</code> <code>Symbol（ES6 新添加的）</code>。 <strong>引用类型</strong> </p>
+<h3 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h3><p><strong>基础类型</strong> 包含的数据类型 <code>Undefined</code> <code>Null</code> <code>Boolean</code> <code>Number</code> <code>String</code> <code>Symbol（ES6 新添加的）</code> 。<strong>基础类型</strong> 具有以下特点:</p>
+<ul>
+<li>它是直接 <strong>按值储存</strong> 在 <strong>栈内存区</strong> 之中的。</li>
+</ul>
+<ul>
+<li>它的对比也是按照值去对比的。</li>
+<li>它值是不可变的。</li>
+</ul>
+<h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><p><strong>引用类型</strong> 指的是 <code>Object</code> 和 所有继承自 <code>Object</code> 的对象， <strong>引用类型</strong> 具有以下特点：</p>
+<ul>
+<li>它是保存在 <strong>堆内存区</strong> 中，在 <strong>栈内存区</strong> 中保存的是在 <strong>堆内存区</strong> 中的引用(内存地址)</li>
+<li>它的对比是按照 <strong>栈内存区</strong> 中的引用区对比的。</li>
+<li>它的值是可变的。</li>
+</ul>
+<h1 id="致敬-参考内容"><a href="#致敬-参考内容" class="headerlink" title="致敬 - 参考内容"></a>致敬 - 参考内容</h1><p><a href="https://book.douban.com/subject/10546125/" target="_blank" rel="external">《JavaScript 高级程序设计》</a></p>
+<p><a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">ECMAScript 6 入门 - let 和 const 命令</a></p>
+<p><a href="https://www.w3cplus.com/javascript/variable-value-data-types.html" target="_blank" rel="external">JavaScript的变量：变量值的数据类型 – </a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;定义变量-常量-let、const、var&quot;&gt;&lt;a href=&quot;#定义变量-常量-let、const、var&quot; class=&quot;headerlink&quot; title=&quot;定义变量/常量 let、const、var&quot;&gt;&lt;/a&gt;定义变量/常量 let、const、var&lt;/
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>JavaScript - 前世今生</title>
