@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-09-01T08:41:48.000Z</updated>
+  <updated>2017-09-02T08:58:31.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,70 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>JavaScript - 基础类型&amp;引用类型</title>
+    <link href="http://yoursite.com/2017/09/01/JavaScript%20-%20%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B&amp;%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/"/>
+    <id>http://yoursite.com/2017/09/01/JavaScript - 基础类型&amp;引用类型/</id>
+    <published>2017-09-01T09:43:17.000Z</published>
+    <updated>2017-09-02T08:58:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>JavaScript 的变量包含两种类型的值 — <strong>基础类型</strong> 和 <strong>引用类型</strong>：</p>
+<ul>
+<li><strong>基础类型</strong> 包含的数据类型有: <code>Undefined</code> <code>Null</code> <code>Boolean</code> <code>Number</code> <code>String</code> <code>Symbol(ES6 新添加的)</code>。</li>
+<li><strong>引用类型</strong> 指的是所有 <code>Object</code> 对象 和 所有派生自 <code>Object</code> 的对象。</li>
+</ul>
+<h1 id="基础类型、引用类型的区别"><a href="#基础类型、引用类型的区别" class="headerlink" title="基础类型、引用类型的区别"></a>基础类型、引用类型的区别</h1><p>了解 <strong>基础类型</strong> 和 <strong>引用类型</strong> 一些不同的特性特点，才能避免在实际使用中掉进坑里。下面总结了 <strong>基础类型</strong> 和 <strong>引用类型</strong> 的区别，后面再通过一些例子和图片细说这些区别:</p>
+<ul>
+<li><strong>基础类型</strong> 存储在 <strong>栈内存区</strong> 中 <strong>按值访问</strong> 的。</li>
+<li><strong>引用类型</strong> 存储在 <strong>堆内存区</strong> 中 <strong>按引用访问</strong> 的。</li>
+<li><strong>基础类型</strong> 大小确定，不能改变。</li>
+<li><strong>引用类型</strong> 大小不定，可以改变。</li>
+<li><strong>基础类型</strong> 赋值时会复制一份 <strong>实际值</strong> 放到对应变量中。</li>
+<li><strong>引用类型</strong> 赋值时会复制一份 <strong>引用值</strong> 放到对应的变量中。</li>
+<li><strong>基础类型</strong> 进行对比时，对比的是实际的值。</li>
+<li><strong>引用类型</strong> 进行对比时，对比的是引用。</li>
+</ul>
+<h1 id="基础类型和引用类型在内存中的分布"><a href="#基础类型和引用类型在内存中的分布" class="headerlink" title="基础类型和引用类型在内存中的分布"></a>基础类型和引用类型在内存中的分布</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> message1 = <span class="string">'ni hao ya'</span>;</div><div class="line"><span class="keyword">var</span> person1  = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'奥观海'</span>,</div><div class="line">  <span class="attr">height</span>: <span class="number">185</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的代码块中声明了两个变量，<code>message1</code> 里装着 <strong>String - 基础类型</strong> 的值，<code>person1</code> 里装装着 <strong>Object 引用类型</strong>。下面通过内存分布图形象的说明他们在内存中的分布:</p>
+<p><img src="http://ol972cch2.bkt.clouddn.com/javascript_memory_stack_heap_1.png" alt="Artboard - 1"></p>
+<p>上图可以看出 <strong>基础类型</strong> 值 <code>ni hao ya</code>  是直接保存在 <strong>栈内存区</strong> 的，可以直接通过 <code>message1</code> 访问它。 而 <strong>引用类型</strong> 值 <code>{name: &#39;奥观海&#39; ...}</code> 是保存在 <strong>堆内存区</strong>，在 <strong>栈内存区</strong> 保存的是这个对象的引用，<code>person1</code> 是通过这个引用去访问位于 <strong>堆内存区</strong> 的对象。所以说 <strong>基础类型</strong> 是按值访问的，而 <strong>引用类型</strong> 是按引用访问的。</p>
+<h1 id="改变基础类型和引用类型的值"><a href="#改变基础类型和引用类型的值" class="headerlink" title="改变基础类型和引用类型的值"></a>改变基础类型和引用类型的值</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> message1 = <span class="string">'ni hao ya'</span>;</div><div class="line">message1.toUpperCase(); <span class="comment">// 返回: NI HAO YA</span></div><div class="line"><span class="built_in">console</span>.log(message1);  <span class="comment">// 输出: ni hao ya</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> person1  = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'奥观海'</span>,</div><div class="line">  <span class="attr">height</span>: <span class="number">185</span></div><div class="line">&#125;</div><div class="line">person1.nation = <span class="string">'肯尼亚'</span>;</div><div class="line"><span class="built_in">console</span>.log(person1);   <span class="comment">// 输出: &#123; name: '奥观海', height: 185, nation: '肯尼亚' &#125;</span></div></pre></td></tr></table></figure>
+<p>上面的代码块中 <code>message1</code> 调用 <code>toUpperCase()</code> 方法来把字符串 <code>ni hao ya</code> 转换成大写，但是后面打印 <code>message1</code> 的值仍然是小写的内容，因为 <strong>基础类型</strong> 的值是不能改变，大小确定的。<code>toUpperCase()</code> 方法只是返回了一个新的字符串，并没有改变 <code>message1</code> 变量里 <strong>基础类型</strong> 的值。而对 <code>person1</code> 添加了一个 <code>nation</code> 属性，后面打印时已经看到它的改变了，因此 <strong>引用类型</strong> 是可以改变，大小不定的。下图展示的是操作后的内存分布图：</p>
+<p><img src="http://ol972cch2.bkt.clouddn.com/javascript_memory_stack_heap_2.png" alt="Artboard - 2"></p>
+<h1 id="基础类型和引用类型进行赋值"><a href="#基础类型和引用类型进行赋值" class="headerlink" title="基础类型和引用类型进行赋值"></a>基础类型和引用类型进行赋值</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> message1 = <span class="string">'ni hao ya'</span>;</div><div class="line"><span class="keyword">var</span> message2 = message1;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1  = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'奥观海'</span>,</div><div class="line">  <span class="attr">height</span>: <span class="number">185</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> person2 = person1;</div></pre></td></tr></table></figure>
+<p>下图展示的是上面代码块执行后的内存分布图:</p>
+<p><img src="http://ol972cch2.bkt.clouddn.com/javascript_memory_stack_heap_3.png" alt="Artboard - 3"></p>
+<p>上面的代码块把 <code>message1</code> 变量的具体值赋值给了 <code>message2</code> 变量中，<code>message1</code> 和 <code>message2</code> 中都保存了相同的值 <code>ni hao ya</code>。把 <code>person1</code> 变量中的具体值赋值给了<code>person2</code>。 <code>person1</code> 和 <code>person2</code> 中都保存着相通的引用。这就是上面的说 <strong>基础类型</strong> 赋值时会复制一份 <strong>实际值</strong> 放到对应变量中，<strong>引用类型</strong> 赋值时会赋值一份 <strong>引用值</strong> 放到对应的变量中。这会造成一个现象: <code>message1</code> <code>message2</code> 的是相互独立的，修改 <code>message2</code> 并不会影响到 <code>message1</code>。<code>person1</code> <code>person2</code> 的引用是指向同一个对象的，所以修改 <code>person1</code> 也会影响到 <code>person2</code>。下面通过代码去验证这个说法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> message1 = <span class="string">'ni hao ya'</span>;</div><div class="line"><span class="keyword">var</span> message2 = message1;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1  = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'奥观海'</span>,</div><div class="line">  <span class="attr">height</span>: <span class="number">185</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> person2 = person1;</div><div class="line"></div><div class="line">message2 = <span class="string">'hou hui you qi'</span>;</div><div class="line"><span class="built_in">console</span>.log(message1);  <span class="comment">// 输出: ni hao ya</span></div><div class="line"><span class="built_in">console</span>.log(message2);  <span class="comment">// 输出: hou hui you qi</span></div><div class="line"></div><div class="line">person2.nation = <span class="string">'肯尼亚'</span>;</div><div class="line"><span class="built_in">console</span>.log(person1);   <span class="comment">// 输出: &#123; name: '奥观海', height: 185, nation: '肯尼亚' &#125;</span></div><div class="line"><span class="built_in">console</span>.log(person2);   <span class="comment">// 输出: &#123; name: '奥观海', height: 185, nation: '肯尼亚' &#125;</span></div></pre></td></tr></table></figure>
+<p>下图展示的是上面代码块执行后的内存分布图:</p>
+<p><img src="http://ol972cch2.bkt.clouddn.com/javascript_memory_stack_heap_4.png" alt="Artboard - 4"></p>
+<h1 id="基础类型和引用类型的比较不同"><a href="#基础类型和引用类型的比较不同" class="headerlink" title="基础类型和引用类型的比较不同"></a>基础类型和引用类型的比较不同</h1><p><strong>基础类型</strong> 进行对比时，对比的是实际的值，<strong>引用类型</strong> 进行对比时，对比的是引用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> message1 = <span class="string">'ni hao ya'</span>;</div><div class="line"><span class="keyword">var</span> message2 = <span class="string">'ni hao ya'</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1  = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'奥观海'</span>,</div><div class="line">  <span class="attr">height</span>: <span class="number">185</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> person2  = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'奥观海'</span>,</div><div class="line">  <span class="attr">height</span>: <span class="number">185</span></div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(message1 === message2);	<span class="comment">// 输出: true</span></div><div class="line"><span class="built_in">console</span>.log(person1 === person2);	<span class="comment">// 输出: false</span></div></pre></td></tr></table></figure>
+<p>下图展示的是上面代码块执行后的内存分布图:</p>
+<p><img src="http://ol972cch2.bkt.clouddn.com/javascript_memory_stack_heap_5.png" alt="Artboard - 5"></p>
+<p><code>message1</code> <code>message2</code> 是 <strong>基础类型</strong>，所以它们比对的是实际的值，因为都是 <code>ni hao ya</code> 所以返回 true。<code>person1</code> <code>person2</code> 是 <strong>引用类型</strong>，所以它们比对的是引用。<code>person1</code> <code>person2</code> 虽然各自拥有的对象是一模一样的，但是在 <strong>堆内存区</strong> 中它们是两个独立的对象，由不同的引用指向它们。所以返回的是 false。</p>
+<h1 id="致敬-参考内容"><a href="#致敬-参考内容" class="headerlink" title="致敬 - 参考内容"></a>致敬 - 参考内容</h1><ul>
+<li><a href="https://book.douban.com/subject/10546125/" target="_blank" rel="external">《JavaScript 高级程序设计》</a></li>
+<li><a href="https://www.w3cplus.com/javascript/variable-value-data-types.html" target="_blank" rel="external">JavaScript的变量：变量值的数据类型</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;JavaScript 的变量包含两种类型的值 — &lt;strong&gt;基础类型&lt;/strong&gt; 和 &lt;strong&gt;引用类型&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;基础类型&lt;/strong&gt; 包含的数据类型有: &lt;code&gt;Undefined&lt;/cod
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>JavaScript - 声明变量</title>
     <link href="http://yoursite.com/2017/08/29/JavaScript%20-%20%E5%A3%B0%E6%98%8E%E5%8F%98%E9%87%8F/"/>
     <id>http://yoursite.com/2017/08/29/JavaScript - 声明变量/</id>
     <published>2017-08-29T15:40:44.000Z</published>
-    <updated>2017-09-01T08:41:48.000Z</updated>
+    <updated>2017-09-02T08:58:02.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="JavaScript-变量的松散特性"><a href="#JavaScript-变量的松散特性" class="headerlink" title="JavaScript 变量的松散特性"></a>JavaScript 变量的松散特性</h1><p>JavaScript 的变量和其他语言相比有一个很大的区别就是 JavaScript 变量的松散特性，JavaScript 的变量在声明时不需要指定类型。在变量的生命周期内，变量可以任意的改变成任何类型的值。例：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> box;</div><div class="line">box = <span class="number">100</span>;</div><div class="line"><span class="built_in">console</span>.log(box);   <span class="comment">// 输出: 100</span></div><div class="line">box = <span class="string">"吃了吗?"</span>;</div><div class="line"><span class="built_in">console</span>.log(box);   <span class="comment">// 输出: 吃了吗?</span></div><div class="line">box = &#123;<span class="attr">name</span>: <span class="string">'奥观海'</span>, <span class="attr">nation</span>:<span class="string">'肯尼亚'</span>&#125;;</div><div class="line"><span class="built_in">console</span>.log(box);   <span class="comment">// 输出: &#123; name: '奥观海', nation: '肯尼亚' &#125;</span></div></pre></td></tr></table></figure>
@@ -42,8 +101,10 @@
 <p> <strong>注：</strong>这种方式在 <code>use strict</code> 严格模式下会报错 <code>is not defined</code>。</p>
 </blockquote>
 <h3 id="ECMAScript-支持版本"><a href="#ECMAScript-支持版本" class="headerlink" title="ECMAScript 支持版本"></a>ECMAScript 支持版本</h3><p><code>let</code> 关键字是 ES6 提供的变量声明方法，它和 <code>var</code> 关键字的作用非常相似，但 <code>let</code> 关键字支持更符合我们思维习惯的 <strong>块级作用域</strong>，所以在不需要兼容 ES6 以前的环境时(例: Node) 推荐使用 <code>let</code> 关键字去替代 <code>var</code> 关键字。</p>
-<h1 id="致敬-参考内容"><a href="#致敬-参考内容" class="headerlink" title="致敬 - 参考内容"></a>致敬 - 参考内容</h1><p><a href="https://book.douban.com/subject/10546125/" target="_blank" rel="external">《JavaScript 高级程序设计》</a></p>
-<p><a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">ECMAScript 6 入门 - let 和 const 命令</a></p>
+<h1 id="致敬-参考内容"><a href="#致敬-参考内容" class="headerlink" title="致敬 - 参考内容"></a>致敬 - 参考内容</h1><ul>
+<li><a href="https://book.douban.com/subject/10546125/" target="_blank" rel="external">《JavaScript 高级程序设计》</a></li>
+<li><a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">ECMAScript 6 入门 - let 和 const 命令</a></li>
+</ul>
 ]]></content>
     
     <summary type="html">
@@ -60,7 +121,7 @@
     <link href="http://yoursite.com/2017/07/03/JavaScript%20-%20%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/"/>
     <id>http://yoursite.com/2017/07/03/JavaScript - 前世今生/</id>
     <published>2017-07-03T12:27:55.000Z</published>
-    <updated>2017-08-22T16:00:00.000Z</updated>
+    <updated>2017-09-02T08:59:02.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="JavaScript-的历史-amp-版本"><a href="#JavaScript-的历史-amp-版本" class="headerlink" title="JavaScript 的历史&amp;版本"></a>JavaScript 的历史&amp;版本</h1><p>📆 1994年12月 - 网景公司(Netscape) 发布了Navigator浏览器1.0版，市场份额一举超过了90%。</p>
 <blockquote>
@@ -113,9 +174,11 @@
 <li>JavaScript 1.5 版完全兼容 ECMAScript 3.0。</li>
 <li>JavaScript 1.8 版完全兼容 ECMAScript 5。</li>
 </ul>
-<h1 id="致敬-参考内容"><a href="#致敬-参考内容" class="headerlink" title="致敬 - 参考内容"></a>致敬 - 参考内容</h1><p><a href="http://JavaScript.ruanyifeng.com/introduction/history.html" target="_blank" rel="external">JavaScript语言的历史 - 阮一峰</a></p>
-<p><a href="https://huangxuan.me/2015/09/22/js-version/" target="_blank" rel="external">ES5, ES6, ES2016, ES.Next: JavaScript 的版本是怎么回事？「译」</a></p>
-<p><a href="http://www.cnblogs.com/ziyunfei/archive/2012/09/24/2699065.html" target="_blank" rel="external">译: ECMAScript:ES.next和ES6以及ES Harmony之间的区别 - 紫云飞</a></p>
+<h1 id="致敬-参考内容"><a href="#致敬-参考内容" class="headerlink" title="致敬 - 参考内容"></a>致敬 - 参考内容</h1><ul>
+<li><a href="http://JavaScript.ruanyifeng.com/introduction/history.html" target="_blank" rel="external">JavaScript语言的历史 - 阮一峰</a></li>
+<li><a href="https://huangxuan.me/2015/09/22/js-version/" target="_blank" rel="external">ES5, ES6, ES2016, ES.Next: JavaScript 的版本是怎么回事？「译」</a></li>
+<li><a href="http://www.cnblogs.com/ziyunfei/archive/2012/09/24/2699065.html" target="_blank" rel="external">译: ECMAScript:ES.next和ES6以及ES Harmony之间的区别 - 紫云飞</a></li>
+</ul>
 ]]></content>
     
     <summary type="html">
